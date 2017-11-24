@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.beajo.choremanager2.OtherActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_bright"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/other"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:text="Other" />
+
+            <Button
+                android:id="@+id/shopping"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:text="Shopping" />
+
+            <Button
+                android:id="@+id/tasks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:text="Tasks" />
+
+            <Button
+                android:id="@+id/people"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:text="people" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/cupboardAndFridge"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:text="Cupboard and Fridge" />
+
+        <Button
+            android:id="@+id/tools"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:text=" Broom Closet (Tools)" />
+
+        <Button
+            android:id="@+id/settings"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:text="Settings" />
+
+        <Button
+            android:id="@+id/switchUser"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:text="Switch User" />
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
