@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "38861389958",
+    "firebase_url": "https://choremanagerseg.firebaseio.com",
+    "project_id": "choremanagerseg",
+    "storage_bucket": "choremanagerseg.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:38861389958:android:b502547911f1bdd2",
+        "android_client_info": {
+          "package_name": "com.example.beajo.choremanager2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "38861389958-04fc0k0ai2e7ba35utf8iveok3cc4orc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.beajo.choremanager2",
+            "certificate_hash": "f5740dcfc0299b6a55f4fbffd6e4291a82dce93e"
+          }
+        },
+        {
+          "client_id": "38861389958-mob0qddhsh11n366k0bk4np9ea42l06g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANwjGSGPZJHCrEZ7U5N0Pn6Dx49CjPmlE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "38861389958-mob0qddhsh11n366k0bk4np9ea42l06g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
