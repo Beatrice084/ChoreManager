@@ -14,39 +14,42 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_bright"
+            android:background="@color/colorPrimaryDark"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/other"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="1dp"
                 android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:text="Other" />
+                android:background="@color/colorPrimaryDark"
+                android:text="@string/Other" />
 
             <Button
                 android:id="@+id/shopping"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="1dp"
                 android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:text="Shopping" />
+                android:background="@color/colorPrimary"
+                android:text="@string/Shopping" />
 
             <Button
                 android:id="@+id/tasks"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="1dp"
                 android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:text="Tasks" />
+                android:background="@color/colorPrimary"
+                android:text="@string/Tasks" />
 
             <Button
                 android:id="@+id/people"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@android:color/transparent"
+                android:background="@color/colorPrimary"
                 android:text="people" />
         </LinearLayout>
 

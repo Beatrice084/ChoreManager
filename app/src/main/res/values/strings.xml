@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ChoreManager2</string>
+    <string name="Shopping">Shopping</string>
+    <string name="Tasks">Tasks</string>
+    <string name="People">People</string>
+    <string name="Other">Other</string>
 </resources>
