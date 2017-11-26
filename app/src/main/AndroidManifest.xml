@@ -21,7 +21,9 @@
         <activity android:name=".CupboardFridgeActivity" />
         <activity android:name=".OtherActivity" />
         <activity android:name=".activity_people_list" />
-        <activity android:name=".switch_user"></activity>
+        <activity android:name=".switch_user" />
+        <activity android:name=".taskIndividual" />
+        <activity android:name=".personIndividual"></activity>
     </application>
 
 </manifest>
