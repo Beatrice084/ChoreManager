@@ -20,7 +20,7 @@ public class ToolsActivity extends AppCompatActivity {
     }
 
     public void peopleButtonClick(View view){//Starts people_list activity
-        Intent peopleIntent = new Intent(getApplicationContext(), activity_people_list.class);
+        Intent peopleIntent = new Intent(getApplicationContext(), PeopleListActivity.class);
         startActivity(peopleIntent);
 
     }
