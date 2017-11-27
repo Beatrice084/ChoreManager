@@ -20,10 +20,10 @@
         <activity android:name=".ToolsActivity" />
         <activity android:name=".CupboardFridgeActivity" />
         <activity android:name=".OtherActivity" />
-        <activity android:name=".activity_people_list" />
-        <activity android:name=".switch_user" />
-        <activity android:name=".taskIndividual" />
-        <activity android:name=".personIndividual"></activity>
+        <activity android:name=".PeopleListActivity" />
+        <activity android:name=".SwitchUserActivity" />
+        <activity android:name=".TaskIndividualActivity" />
+        <activity android:name=".PersonIndividualActivity"></activity>
     </application>
 
 </manifest>
