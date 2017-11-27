@@ -9,21 +9,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityChoreList">
+        <activity android:name=".views.ActivityChoreList">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ShoppingActivity" />
-        <activity android:name=".ToolsActivity" />
-        <activity android:name=".CupboardFridgeActivity" />
-        <activity android:name=".OtherActivity" />
+        <activity android:name=".views.ShoppingActivity" />
+        <activity android:name=".views.ToolsActivity" />
+        <activity android:name=".views.CupboardFridgeActivity" />
+        <activity android:name=".views.OtherActivity" />
         <activity android:name=".PeopleListActivity" />
-        <activity android:name=".SwitchUserActivity" />
-        <activity android:name=".TaskIndividualActivity" />
-        <activity android:name=".PersonIndividualActivity"></activity>
+        <activity android:name=".views.SwitchUserActivity" />
+        <activity android:name=".views.TaskIndividualActivity" />
+        <activity android:name=".views.PersonIndividualActivity" />
+        <activity
+            android:name=".views.PeopleActivity"
+            android:label="@string/title_activity_people"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

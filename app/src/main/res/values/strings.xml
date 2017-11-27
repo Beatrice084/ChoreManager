@@ -12,4 +12,8 @@
     </string-array>
 
     <string name="listPrompt">Choose Status</string>
+    <string name="title_activity_people">PeopleActivity</string>
+    <string name="person_name">John Doe</string>
+    <string name="person_allocated_tasks">Allocate Tasks: 1</string>
+    <string name="person_next_task">Go shopping</string>
 </resources>
