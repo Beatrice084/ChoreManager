@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
@@ -71,4 +72,23 @@ public class ActivityChoreList extends AppCompatActivity {
                         .build(),
                 RC_SIGN_IN);
     }
+
+    public void shoppingButtonClick(View view){//Starts Shopping activity
+        Intent shoppingIntent = new Intent(getApplicationContext(), ShoppingActivity.class);
+        startActivity(shoppingIntent);
+
+    }
+
+    public void peopleButtonClick(View view){//Starts people_list activity
+        Intent peopleIntent = new Intent(getApplicationContext(), activity_people_list.class);
+        startActivity(peopleIntent);
+
+    }
+
+    public void otherButtonClick(View view){//Starts other activity
+        Intent otherIntent = new Intent(getApplicationContext(), OtherActivity.class);
+        startActivity(otherIntent);
+    }
+    
+
 }

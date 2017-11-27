@@ -4,4 +4,12 @@
     <string name="Tasks">Tasks</string>
     <string name="People">People</string>
     <string name="Other">Other</string>
+
+    <string-array name="drop_list">
+        <item>Complete</item>
+        <item>Postponed</item>
+        <item>Incomplete</item>
+    </string-array>
+
+    <string name="listPrompt">Choose Status</string>
 </resources>

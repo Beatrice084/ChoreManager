@@ -24,6 +24,7 @@
                 android:layout_marginRight="1dp"
                 android:layout_weight="1"
                 android:background="@color/colorPrimary"
+                android:onClick="otherButtonClick"
                 android:text="@string/Other"
                 android:textColor="#ffffff" />
 
@@ -34,6 +35,7 @@
                 android:layout_marginRight="1dp"
                 android:layout_weight="1"
                 android:background="@color/colorPrimary"
+                android:onClick="shoppingButtonClick"
                 android:text="@string/Shopping"
                 android:textColor="#ffffff" />
 
@@ -53,6 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="?attr/colorPrimary"
+                android:onClick="peopleButtonClick"
                 android:text="@string/People"
                 android:textColor="#ffffff" />
         </LinearLayout>
@@ -84,7 +87,7 @@
         </LinearLayout>
 
         <ListView
-            android:id="@+id/list"
+            android:id="@+id/taskList"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>

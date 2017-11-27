@@ -23,8 +23,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="1dp"
                 android:layout_weight="1"
-                android:background="@color/colorPrimaryDark"
-                android:text="@string/Other" />
+                android:background="@color/colorPrimary"
+                android:onClick="otherButtonClick"
+                android:text="@string/Other"
+                android:textColor="#ffffff" />
 
             <Button
                 android:id="@+id/shopping"
@@ -33,7 +35,9 @@
                 android:layout_marginRight="1dp"
                 android:layout_weight="1"
                 android:background="@color/colorPrimary"
-                android:text="@string/Shopping" />
+                android:onClick="shoppingButtonClick"
+                android:text="@string/Shopping"
+                android:textColor="#ffffff" />
 
             <Button
                 android:id="@+id/tasks"
@@ -42,7 +46,9 @@
                 android:layout_marginRight="1dp"
                 android:layout_weight="1"
                 android:background="@color/colorPrimary"
-                android:text="@string/Tasks" />
+                android:onClick="tasksButtonClick"
+                android:text="@string/Tasks"
+                android:textColor="#ffffff" />
 
             <Button
                 android:id="@+id/people"
@@ -50,7 +56,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/colorPrimary"
-                android:text="people" />
+                android:onClick="peopleButtonClick"
+                android:text="people"
+                android:textColor="#ffffff" />
         </LinearLayout>
 
         <RelativeLayout
@@ -68,8 +76,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Enter Item in Cupboard or Fridge" />
+                    android:hint="Enter Item in Cupboard or Fridge"
+                    android:inputType="textPersonName" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
