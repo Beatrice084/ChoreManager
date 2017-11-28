@@ -53,17 +53,19 @@ public class PeopleActivity extends AppCompatActivity {
     public void shoppingButtonClick(View view){//Starts Shopping activity
         Intent shoppingIntent = new Intent(getApplicationContext(), ShoppingActivity.class);
         startActivity(shoppingIntent);
-
+        finish();
     }
 
     public void otherButtonClick(View view){//Starts other activity
         Intent otherIntent = new Intent(getApplicationContext(), OtherActivity.class);
         startActivity(otherIntent);
+        finish();
     }
 
     public void tasksButtonClick(View view){//Starts ChoreList activity
         Intent tasksIntent = new Intent(getApplicationContext(), ActivityChoreList.class);
         startActivity(tasksIntent);
+        finish();
     }
 
     private ArrayList<Person> getRandmonPeople(){

@@ -18,27 +18,30 @@ public class OtherActivity extends AppCompatActivity {
     public void shoppingButtonClick(View view){//Starts Shopping activity
         Intent shoppingIntent = new Intent(getApplicationContext(), ShoppingActivity.class);
         startActivity(shoppingIntent);
-
+        finish();
     }
 
     public void peopleButtonClick(View view){//Starts people_list activity
         Intent peopleIntent = new Intent(getApplicationContext(), PeopleActivity.class);
         startActivity(peopleIntent);
-
+        finish();
     }
 
     public void tasksButtonClick(View view){//Starts ChoreList activity
         Intent tasksIntent = new Intent(getApplicationContext(), ActivityChoreList.class);
         startActivity(tasksIntent);
+        finish();
     }
 
     public void cupFriButtonClick(View view){//Starts ChoreList activity
         Intent cupFriIntent = new Intent(getApplicationContext(), CupboardFridgeActivity.class);
         startActivity(cupFriIntent);
+        finish();
     }
 
     public void toolButtonClick(View view){//Starts ChoreList activity
         Intent toolsIntent = new Intent(getApplicationContext(), ToolsActivity.class);
         startActivity(toolsIntent);
+        finish();
     }
 }
