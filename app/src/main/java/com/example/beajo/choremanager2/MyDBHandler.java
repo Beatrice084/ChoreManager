@@ -5,6 +5,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
 import android.content.ContentValues;
 import android.database.Cursor;
+
+import com.google.android.gms.tasks.Task;
+
 import java.util.ArrayList;
 
 /**
@@ -17,6 +20,11 @@ import java.util.ArrayList;
 public class MyDBHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "choreApp.db";
+    private static final String PERSON_TABLE_NAME = "Person";
+    private static final String TASK_TABLE_NAME = "Task";
+    private static final String CUPBOARDANDFRIDGE_TABLE_NAME = "Cupboardandfridgeitem";
+    private static final String SHOPPING_TABLE_NAME = "Shoppingitem";
+    private static final String TOOL_TABLE_NAME = "Tool";
 
     public MyDBHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -25,13 +33,13 @@ public class MyDBHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // creating table for the list of family members
-        String CREATE_PERSON_TABLE = "CREATE TABLE Person (" +
-                "name TEXT PRIMARY KEY UNIQUE KEY NOT NULL)";
+        String CREATE_PERSON_TABLE = "CREATE TABLE " + PERSON_TABLE_NAME +
+                "(name TEXT PRIMARY KEY UNIQUE KEY NOT NULL, image INTEGER)";
 
 
         // creating task table
-        String CREATE_TASK_TABLE = "CREATE TABLE Task (" +
-                "taskName TEXT NOT NULL, " +
+        String CREATE_TASK_TABLE = "CREATE TABLE " + TASK_TABLE_NAME +
+                "(taskName TEXT NOT NULL, " +
                 "personAssigned TEXT NOT NULL, " +
                 "taskNote TEXT," +
                 // have to figure out how to relate equipment to tasks ""+
@@ -40,18 +48,18 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
 
         // creating cupboard and fride table
-        String CREATE_CUPBOARDANDFRIDGEITEM_TABLE ="CREATE TABLE Cupboardandfridgeitem (" +
-                "item TEXT NOT NULL," +
+        String CREATE_CUPBOARDANDFRIDGEITEM_TABLE ="CREATE TABLE " +  CUPBOARDANDFRIDGE_TABLE_NAME +
+                "(item TEXT NOT NULL," +
                 "CONSTRAINT personCupboard FOREIGN KEY (person) REFERENCES Person (name))";
 
         // creating table for shopping items
-        String CREATE_SHOPPINGITEM_TABLE = "CREATE TABLE Shoppingitem (" +
-                "person TEXT NOT NULL," +
+        String CREATE_SHOPPINGITEM_TABLE = "CREATE TABLE " + SHOPPING_TABLE_NAME +
+                "(person TEXT NOT NULL," +
                 "shoppingitem TEXT NOT NULL," +
                 "CONSTRAINT personShoppingitem FOREIGN KEY (person) REFERENCES Person (name)";
 
         // creating table for tools
-        String CREATE_TOOLS_TABLE ="CREATE TABLE Tool (item TEXT PRIMARY KEY UNIQUE KEY NOT NULL)";
+        String CREATE_TOOLS_TABLE ="CREATE TABLE " + TOOL_TABLE_NAME + " (item TEXT PRIMARY KEY UNIQUE KEY NOT NULL)";
 
         db.execSQL(CREATE_PERSON_TABLE);
         db.execSQL(CREATE_TASK_TABLE);
@@ -61,8 +69,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion,
-                          int newVersion) {
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
 
     // controler methods for table person
@@ -70,17 +77,18 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put("name", person.getName());
+        values.put("image", person.getImage());
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.insert("Person", null, values);
+        db.insert(PERSON_TABLE_NAME, null, values);
 
         db.close();
 
     }
 
     public Person findPerson(String name) {
-        String query = "Select * FROM Person WHERE name = \"" +name+ "\"";
+        String query = "Select * FROM " +  PERSON_TABLE_NAME + " WHERE name = \"" +name+ "\"";
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -98,7 +106,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public boolean deletePerson(String name) {
         boolean result = false;
 
-        String query = "Select * FROM Person WHERE name = \"" +name+ "\"";
+        String query = "Select * FROM " +  PERSON_TABLE_NAME + " WHERE name = \"" +name+ "\"";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -124,14 +132,14 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.insert("Task", null, values);
+        db.insert(TASK_TABLE_NAME, null, values);
 
         db.close();
 
     }
 
     public ArrayList<TaskItem> findTask(Person person) {
-        String query = "Select * FROM Task WHERE personAssigned = \"" +person.getName()+ "\"";
+        String query = "Select * FROM " + TASK_TABLE_NAME + " WHERE personAssigned = \"" +person.getName()+ "\"";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -148,7 +156,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     }
 
     public ArrayList<TaskItem> findTask() {
-        String query = "Select * FROM Task ";
+        String query = "Select * FROM " +  TASK_TABLE_NAME;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -167,7 +175,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public boolean deleteTask(String taskName) {
         boolean result = false;
 
-        String query = "Select * FROM Task WHERE taskName = \"" +taskName+ "\"";
+        String query = "Select * FROM " +  TASK_TABLE_NAME + " WHERE taskName = \"" +taskName+ "\"";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -191,14 +199,14 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.insert("Cupboardandfridgeitem", null, values);
+        db.insert(CUPBOARDANDFRIDGE_TABLE_NAME, null, values);
 
         db.close();
 
     }
 
     public ArrayList<Item> findCupboardItem() {
-        String query = "Select * FROM Cupboardandfridgeitem" ;
+        String query = "Select * FROM " +  CUPBOARDANDFRIDGE_TABLE_NAME ;
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -220,7 +228,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public boolean deleteCupboardItem(String item) {
         boolean result = false;
 
-        String query = "Select * FROM Cupboardandfridgeitem WHERE item = \"" +item+ "\"";
+        String query = "Select * FROM " + CUPBOARDANDFRIDGE_TABLE_NAME + " WHERE item = \"" +item+ "\"";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -245,13 +253,14 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.insert("Shoppingitem", null, values);
+        db.insert(SHOPPING_TABLE_NAME, null, values);
 
         db.close();
 
     }
+
     public ArrayList<Item> findShoppingItems(Person person){
-        String query = "Select * FROM Shoppingitem WHERE person =  \"" +person.getName()+ "\""  ;
+        String query = "Select * FROM " + SHOPPING_TABLE_NAME + " WHERE person =  \"" +person.getName()+ "\""  ;
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -269,17 +278,18 @@ public class MyDBHandler extends SQLiteOpenHelper {
         cursor.close();
         return result;
     }
+
     public boolean deleteShoppingItem(Item item) {
         boolean result = false;
 
-        String query = "Select * FROM Task WHERE name = \"" +item.getName()+ "\"";
+        String query = "Select * FROM " + TASK_TABLE_NAME + " WHERE name = \"" +item.getName()+ "\"";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
             String taskToDelete = cursor.getString(1);
-            db.delete("Task", "taskName = " + taskToDelete, null);
+            db.delete(TASK_TABLE_NAME, "taskName = " + taskToDelete, null);
             cursor.close();
             result = true;
         }
@@ -296,13 +306,14 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.insert("Tool", null, values);
+        db.insert(TOOL_TABLE_NAME, null, values);
 
         db.close();
 
     }
+
     public ArrayList<Item> findTools() {
-        String query = "Select * FROM Tool" ;
+        String query = "Select * FROM " + TOOL_TABLE_NAME ;
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -320,17 +331,18 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.close();
         return result;
     }
+
     public boolean deleteTool(String item) {
         boolean result = false;
 
-        String query = "Select * FROM Tool WHERE item = \"" +item+ "\"";
+        String query = "Select * FROM " +  TOOL_TABLE_NAME + " WHERE item = \"" +item+ "\"";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
             String itemToDelete = cursor.getString(0);
-            db.delete("Tool", "item = " + itemToDelete, null);
+            db.delete(TOOL_TABLE_NAME, "item = " + itemToDelete, null);
             cursor.close();
             result = true;
         }
