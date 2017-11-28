@@ -11,7 +11,11 @@ public class Person {
     public Person() {
     }
 
-    public Person(String name,  int image) {
+    public Person(String name) {
+        this.name = name;
+    }
+
+    public Person(String name, int image) {
         this.name = name;
         this.image = image;
     }

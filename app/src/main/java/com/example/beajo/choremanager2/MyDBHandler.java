@@ -59,13 +59,14 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_SHOPPINGITEM_TABLE);
         db.execSQL(CREATE_TOOLS_TABLE);
     }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion,
                           int newVersion) {
     }
 
     // controler methods for table person
-    public void addPerson(PersonObject person) {
+    public void addPerson(Person person) {
 
         ContentValues values = new ContentValues();
         values.put("name", person.getName());
@@ -77,21 +78,23 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.close();
 
     }
-    public PersonObject findPerson(String name) {
+
+    public Person findPerson(String name) {
         String query = "Select * FROM Person WHERE name = \"" +name+ "\"";
 
         SQLiteDatabase db = this.getWritableDatabase();
 
         Cursor cursor = db.rawQuery(query, null);
 
-        PersonObject person = null;
+        Person person = null;
         if (cursor.moveToFirst()) {
-            person = new PersonObject(cursor.getString(0));
+            person = new Person(cursor.getString(0));
             cursor.close();
         }
         db.close();
         return person;
     }
+
     public boolean deletePerson(String name) {
         boolean result = false;
 
@@ -112,7 +115,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     }
 
     // controller methods for table task
-    public void addTask(PersonObject person,TaskItemObject task) {
+    public void addTask(Person person,TaskItem task) {
 
         ContentValues values = new ContentValues();
         values.put("taskName",task.getName());
@@ -126,38 +129,41 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.close();
 
     }
-    public ArrayList<TaskItemObject> findTask(PersonObject person) {
+
+    public ArrayList<TaskItem> findTask(Person person) {
         String query = "Select * FROM Task WHERE personAssigned = \"" +person.getName()+ "\"";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
-        ArrayList<TaskItemObject> result = new ArrayList<TaskItemObject>();
+        ArrayList<TaskItem> result = new ArrayList<TaskItem>();
 
         for (int i=0 ;i<cursor.getCount();i++){
             if(cursor.moveToPosition(i)){
-                result.add(new  TaskItemObject(cursor.getString(0),new PersonObject( cursor.getString(1)),cursor.getString(2),null));
+                result.add(new TaskItem(cursor.getString(0),new Person( cursor.getString(1)),cursor.getString(2),null));
             }
         }
         cursor.close();
         db.close();
         return result;
     }
-    public ArrayList<TaskItemObject> findTask() {
+
+    public ArrayList<TaskItem> findTask() {
         String query = "Select * FROM Task ";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
-        ArrayList<TaskItemObject> result = new ArrayList<TaskItemObject>();
+        ArrayList<TaskItem> result = new ArrayList<TaskItem>();
 
         for (int i=0 ;i<cursor.getCount();i++){
             if(cursor.moveToPosition(i)){
-                result.add(new  TaskItemObject(cursor.getString(0),new PersonObject( cursor.getString(1)),cursor.getString(2),null));
+                result.add(new TaskItem(cursor.getString(0),new Person( cursor.getString(1)),cursor.getString(2),null));
             }
         }
         cursor.close();
         db.close();
         return result;
     }
+
     public boolean deleteTask(String taskName) {
         boolean result = false;
 
@@ -177,10 +183,8 @@ public class MyDBHandler extends SQLiteOpenHelper {
         return result;
     }
 
-
-
     // controller methods for cupboard item
-    public void addCupboardItem(ItemObject item) {
+    public void addCupboardItem(Item item) {
 
         ContentValues values = new ContentValues();
         values.put("item", item.getName());
@@ -192,25 +196,27 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.close();
 
     }
-    public ArrayList<ItemObject> findCupboardItem() {
+
+    public ArrayList<Item> findCupboardItem() {
         String query = "Select * FROM Cupboardandfridgeitem" ;
 
         SQLiteDatabase db = this.getWritableDatabase();
 
         Cursor cursor = db.rawQuery(query, null);
 
-        ArrayList<ItemObject> result = new ArrayList<ItemObject>();
+        ArrayList<Item> result = new ArrayList<Item>();
 
 
         for (int i=0 ;i<cursor.getCount();i++){
             if(cursor.moveToPosition(i)){
-                result.add(new  ItemObject(cursor.getString(0)));
+                result.add(new Item(cursor.getString(0)));
             }
         }
         cursor.close();
         db.close();
         return result;
     }
+
     public boolean deleteCupboardItem(String item) {
         boolean result = false;
 
@@ -230,11 +236,8 @@ public class MyDBHandler extends SQLiteOpenHelper {
         return result;
     }
 
-
-
-
     // controller methods for shopping items
-    public void addShoppingItem(PersonObject person,ItemObject item) {
+    public void addShoppingItem(Person person,Item item) {
 
         ContentValues values = new ContentValues();
         values.put("person", person.getName());
@@ -247,26 +250,26 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.close();
 
     }
-    public ArrayList<ItemObject> findShoppingItems(PersonObject person){
+    public ArrayList<Item> findShoppingItems(Person person){
         String query = "Select * FROM Shoppingitem WHERE person =  \"" +person.getName()+ "\""  ;
 
         SQLiteDatabase db = this.getWritableDatabase();
 
         Cursor cursor = db.rawQuery(query, null);
 
-        ArrayList<ItemObject> result = new ArrayList<ItemObject>();
+        ArrayList<Item> result = new ArrayList<Item>();
 
 
         for (int i=0 ;i<cursor.getCount();i++){
             if(cursor.moveToPosition(i)){
-                result.add(new  ItemObject(cursor.getString(1)));
+                result.add(new Item(cursor.getString(1)));
             }
         }
         db.close();
         cursor.close();
         return result;
     }
-    public boolean deleteShoppingItem(ItemObject item) {
+    public boolean deleteShoppingItem(Item item) {
         boolean result = false;
 
         String query = "Select * FROM Task WHERE name = \"" +item.getName()+ "\"";
@@ -286,7 +289,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     }
 
     // controller methods for tools
-    public void addTool(ItemObject item) {
+    public void addTool(Item item) {
 
         ContentValues values = new ContentValues();
         values.put("item", item.getName());
@@ -298,19 +301,19 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.close();
 
     }
-    public ArrayList<ItemObject> findTools() {
+    public ArrayList<Item> findTools() {
         String query = "Select * FROM Tool" ;
 
         SQLiteDatabase db = this.getWritableDatabase();
 
         Cursor cursor = db.rawQuery(query, null);
 
-        ArrayList<ItemObject> result = new ArrayList<ItemObject>();
+        ArrayList<Item> result = new ArrayList<Item>();
 
 
         for (int i=0 ;i<cursor.getCount();i++){
             if(cursor.moveToPosition(i)){
-                result.add(new  ItemObject(cursor.getString(0)));
+                result.add(new Item(cursor.getString(0)));
             }
         }
         cursor.close();

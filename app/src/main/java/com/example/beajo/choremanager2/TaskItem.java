@@ -4,12 +4,12 @@ package com.example.beajo.choremanager2;
  * Created by saheed on 2017-11-26.
  */
 
-public class TaskItemObject {
+public class TaskItem {
     private String name;
-    private PersonObject personAssigned;
+    private Person personAssigned;
     private String note;
-    private ItemObject[] equiptment;
-    public TaskItemObject(String name,PersonObject personAssigned,String note,ItemObject[] equiptment){
+    private Item[] equiptment;
+    public TaskItem(String name, Person personAssigned, String note, Item[] equiptment){
         this.name = name;
         this.personAssigned = personAssigned;
         this.note = note;
@@ -22,10 +22,10 @@ public class TaskItemObject {
     public void setName(String name){
         this.name = name;
     }
-    public PersonObject getPersonAssigned(){
+    public Person getPersonAssigned(){
         return this.personAssigned;
     }
-    public void setPersonAssigned(PersonObject personAssigned){
+    public void setPersonAssigned(Person personAssigned){
         this.personAssigned = personAssigned;
     }
     public String getNote(){
@@ -34,10 +34,10 @@ public class TaskItemObject {
     public void setNote(String note){
         this.note = note;
     }
-    public ItemObject[] getEquiptment(){
+    public Item[] getEquiptment(){
         return this.equiptment;
     }
-    public void setEquiptment(ItemObject[] equiptment){
+    public void setEquiptment(Item[] equiptment){
         this.equiptment = equiptment;
     }
 }
