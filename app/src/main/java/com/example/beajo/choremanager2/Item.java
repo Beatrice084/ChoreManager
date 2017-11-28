@@ -1,15 +1,13 @@
 package com.example.beajo.choremanager2;
 
 /**
- * Created by saheed on 2017-11-26.
+ * Created by saheed on 2017-11-27.
  */
 
-public class PersonObject {
+public class Item {
     private String name;
-    public PersonObject(String name){
+    public Item(String name){
         this.name = name;
-
-
     }
     public String getName(){
         return this.name;
