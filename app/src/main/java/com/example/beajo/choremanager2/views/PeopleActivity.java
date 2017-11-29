@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -18,9 +20,12 @@ import com.example.beajo.choremanager2.adapters.PersonAdapter;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class PeopleActivity extends AppCompatActivity {
+public class PeopleActivity extends AppCompatActivity implements NewPersonDialog.NewPersonDialogListener {
 
     ArrayList<Person> p;
+    NewPersonDialog dialog;
+    FragmentTransaction ft;
+    private final String TAG = PeopleActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +42,10 @@ public class PeopleActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                showDialog();
+
             }
         });
 
@@ -95,4 +102,24 @@ public class PeopleActivity extends AppCompatActivity {
         return people;
     }
 
+    private void showDialog(){
+        ft = getSupportFragmentManager().beginTransaction();
+        dialog = NewPersonDialog.newInstance();
+        dialog.show(ft, null);
+    }
+
+    @Override
+    public void dataSaved() {
+        dialog.dismiss();
+    }
+
+    @Override
+    public void saveStatus(int i) {
+        if(i == 0){
+            Toast.makeText(this, "Save failed", Toast.LENGTH_LONG).show();
+        }
+        else {
+            Toast.makeText(this, "Save successful", Toast.LENGTH_LONG).show();
+        }
+    }
 }

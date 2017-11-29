@@ -1,10 +1,12 @@
 package com.example.beajo.choremanager2;
 
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.util.Log;
 
 import com.google.android.gms.tasks.Task;
 
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 // make this a singleton class
 
 public class MyDBHandler extends SQLiteOpenHelper {
+    private static final String TAG = MyDBHandler.class.getSimpleName();
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "choreApp.db";
     private static final String PERSON_TABLE_NAME = "Person";
@@ -34,7 +37,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         // creating table for the list of family members
         String CREATE_PERSON_TABLE = "CREATE TABLE " + PERSON_TABLE_NAME +
-                "(name TEXT PRIMARY KEY UNIQUE KEY NOT NULL, image INTEGER)";
+                "(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE NOT NULL, image INTEGER);";
 
 
         // creating task table
@@ -44,6 +47,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 "taskNote TEXT," +
                 // have to figure out how to relate equipment to tasks ""+
                 "CONSTRAINT personTask FOREIGN KEY (personAssigned) REFERENCES Person (name))";
+
 
 
 
@@ -63,9 +67,9 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         db.execSQL(CREATE_PERSON_TABLE);
         db.execSQL(CREATE_TASK_TABLE);
-        db.execSQL(CREATE_CUPBOARDANDFRIDGEITEM_TABLE);
-        db.execSQL(CREATE_SHOPPINGITEM_TABLE);
-        db.execSQL(CREATE_TOOLS_TABLE);
+//        db.execSQL(CREATE_CUPBOARDANDFRIDGEITEM_TABLE);
+//        db.execSQL(CREATE_SHOPPINGITEM_TABLE);
+//        db.execSQL(CREATE_TOOLS_TABLE);
     }
 
     @Override
@@ -73,7 +77,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     }
 
     // controler methods for table person
-    public void addPerson(Person person) {
+    public boolean addPerson(Person person) {
 
         ContentValues values = new ContentValues();
         values.put("name", person.getName());
@@ -81,10 +85,16 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.insert(PERSON_TABLE_NAME, null, values);
+        try{
+            db.insertOrThrow(PERSON_TABLE_NAME, null, values);
+        }
+        catch (android.database.sqlite.SQLiteConstraintException e){
+            Log.e(TAG, e.getMessage());
+            return false;
+        }
 
         db.close();
-
+        return true;
     }
 
     public Person findPerson(String name) {
