@@ -48,9 +48,6 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 // have to figure out how to relate equipment to tasks ""+
                 "CONSTRAINT personTask FOREIGN KEY (personAssigned) REFERENCES Person (name))";
 
-
-
-
         // creating cupboard and fride table
         String CREATE_CUPBOARDANDFRIDGEITEM_TABLE ="CREATE TABLE " +  CUPBOARDANDFRIDGE_TABLE_NAME +
                 "(item TEXT NOT NULL," +
@@ -106,7 +103,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         Person person = null;
         if (cursor.moveToFirst()) {
-            person = new Person(cursor.getString(0));
+            person = new Person(cursor.getString(1), cursor.getInt(2));
             cursor.close();
         }
         db.close();
@@ -130,6 +127,20 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         db.close();
         return result;
+    }
+
+    public ArrayList<Person> getPeople(){
+        String query = "Select * FROM " +  PERSON_TABLE_NAME ;
+        SQLiteDatabase db = getReadableDatabase();
+        ArrayList<Person> people = new ArrayList<>();
+        Cursor cursor = db.rawQuery(query, null);
+
+        while (cursor.moveToNext()){
+            people.add(new Person(cursor.getString(1), cursor.getInt(2)));
+        }
+        cursor.close();
+        db.close();
+        return people;
     }
 
     // controller methods for table task
