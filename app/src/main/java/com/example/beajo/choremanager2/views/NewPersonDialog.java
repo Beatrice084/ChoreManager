@@ -29,9 +29,10 @@ public class NewPersonDialog extends DialogFragment {
     RadioButton maleButton, femaleButton;
     Button save;
     NewPersonDialogListener callback;
+    Person p = new Person();
 
     interface NewPersonDialogListener{
-        void dataSaved();
+        void dataSaved(Person p);
         void saveStatus(int i);
     }
 
@@ -49,7 +50,7 @@ public class NewPersonDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 if(save()){
-                    callback.dataSaved();
+                    callback.dataSaved(p);
                 }
             }
         });
@@ -59,9 +60,8 @@ public class NewPersonDialog extends DialogFragment {
 
     private boolean save(){
         MyDBHandler dbHandler = new MyDBHandler(getContext());
-        Person p = verify();
-        boolean stat = true;
-        if(p != null){
+        boolean stat;
+        if(verify()){
             stat = dbHandler.addPerson(p);
             if(stat){
                 callback.saveStatus(1);
@@ -74,10 +74,9 @@ public class NewPersonDialog extends DialogFragment {
         return false;
     }
 
-    private Person verify(){
+    private boolean verify(){
         boolean state = true;
         String name = nameView.getText().toString();
-        Person p = new Person();
         if(TextUtils.isEmpty(name)){
             nameView.setError("Name can't be empty");
             state = false;
@@ -94,8 +93,7 @@ public class NewPersonDialog extends DialogFragment {
             Toast.makeText(getContext(), "Please select gender", Toast.LENGTH_SHORT).show();
             state = false;
         }
-        if(state == true) return p;
-        return null;
+        return state;
     }
 
     public static NewPersonDialog newInstance(){

@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.beajo.choremanager2.MyDBHandler;
 import com.example.beajo.choremanager2.Person;
 import com.example.beajo.choremanager2.R;
 import com.example.beajo.choremanager2.adapters.PersonAdapter;
@@ -25,7 +26,9 @@ public class PeopleActivity extends AppCompatActivity implements NewPersonDialog
     ArrayList<Person> p;
     NewPersonDialog dialog;
     FragmentTransaction ft;
+    PersonAdapter adapter;
     private final String TAG = PeopleActivity.class.getSimpleName();
+    MyDBHandler db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +36,12 @@ public class PeopleActivity extends AppCompatActivity implements NewPersonDialog
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        db = new MyDBHandler(this);
+
         ListView peopleList = (ListView)findViewById(R.id.list);
-        p = getRandmonPeople();
-        PersonAdapter adapter = new PersonAdapter(this, p);
+        //p = getRandmonPeople();
+        p = db.getPeople();
+        adapter = new PersonAdapter(this, p);
         peopleList.setAdapter(adapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -109,7 +115,9 @@ public class PeopleActivity extends AppCompatActivity implements NewPersonDialog
     }
 
     @Override
-    public void dataSaved() {
+    public void dataSaved(Person p) {
+        this.p.add(p);
+        adapter.notifyDataSetChanged();
         dialog.dismiss();
     }
 
