@@ -99,6 +99,7 @@ public class ActivityChoreList extends AppCompatActivity {
         finish();
     }
 
+
     public void uploadUser(){
         Person p = new Person();
         FirebaseUser user = mAuth.getCurrentUser();

@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -47,9 +48,7 @@ public class PeopleActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//                showDialog();
+
 
             }
         });
@@ -57,7 +56,13 @@ public class PeopleActivity extends AppCompatActivity {
         peopleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "selected");
                 Toast.makeText(view.getContext(), p.get(position).getName(), Toast.LENGTH_SHORT).show();
+                Bundle b = new Bundle();
+                b.putString("name", p.get(position).getName());
+                Intent personIntent = new Intent(getApplicationContext(), PersonIndividualActivity.class);
+                personIntent.putExtras(b);
+                startActivity(personIntent);
             }
         });
     }

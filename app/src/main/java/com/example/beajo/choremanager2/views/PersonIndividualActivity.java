@@ -28,5 +28,7 @@ public class PersonIndividualActivity extends AppCompatActivity {
 
 
 
+
+
     }
 }
