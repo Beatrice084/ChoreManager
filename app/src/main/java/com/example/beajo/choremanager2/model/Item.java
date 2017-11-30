@@ -1,4 +1,4 @@
-package com.example.beajo.choremanager2;
+package com.example.beajo.choremanager2.model;
 
 /**
  * Created by saheed on 2017-11-27.

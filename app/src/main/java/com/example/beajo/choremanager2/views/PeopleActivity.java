@@ -3,27 +3,25 @@ package com.example.beajo.choremanager2.views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.beajo.choremanager2.Person;
+import com.example.beajo.choremanager2.model.Person;
 import com.example.beajo.choremanager2.R;
 import com.example.beajo.choremanager2.adapters.PersonAdapter;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class PeopleActivity extends AppCompatActivity implements NewPersonDialog.NewPersonDialogListener {
+public class PeopleActivity extends AppCompatActivity {
 
     ArrayList<Person> p;
-    NewPersonDialog dialog;
+    //NewPersonDialog dialog;
     FragmentTransaction ft;
     private final String TAG = PeopleActivity.class.getSimpleName();
     @Override
@@ -34,7 +32,8 @@ public class PeopleActivity extends AppCompatActivity implements NewPersonDialog
         setSupportActionBar(toolbar);
 
         ListView peopleList = (ListView)findViewById(R.id.list);
-        p = getRandmonPeople();
+        //p = getRandmonPeople();
+        p = new ArrayList<>();
         PersonAdapter adapter = new PersonAdapter(this, p);
         peopleList.setAdapter(adapter);
 
@@ -44,7 +43,7 @@ public class PeopleActivity extends AppCompatActivity implements NewPersonDialog
             public void onClick(View view) {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
-                showDialog();
+//                showDialog();
 
             }
         });
@@ -75,51 +74,51 @@ public class PeopleActivity extends AppCompatActivity implements NewPersonDialog
         finish();
     }
 
-    private ArrayList<Person> getRandmonPeople(){
-        ArrayList<Person> people = new ArrayList<>();
-        Person a = new Person("Toluwani Ogunsanya", R.drawable.male);
-        Person b = new Person("Alex Yuille", R.drawable.male);
-        Person c = new Person("Saheed Akinbile", R.drawable.male);
-        Person d = new Person("Beatrice Johnston", R.drawable.female);
+//    private ArrayList<Person> getRandmonPeople(){
+//        ArrayList<Person> people = new ArrayList<>();
+//        Person a = new Person("Toluwani Ogunsanya", R.drawable.male);
+//        Person b = new Person("Alex Yuille", R.drawable.male);
+//        Person c = new Person("Saheed Akinbile", R.drawable.male);
+//        Person d = new Person("Beatrice Johnston", R.drawable.female);
+//
+//        Random r = new Random();
+//
+//        for (int i = 0; i < 10; i++){
+//            int j = r.nextInt(4)+1;
+//            if(j == 1){
+//                people.add(a);
+//            }
+//            else if(j == 2){
+//                people.add(b);
+//            }
+//            else if(j == 3){
+//                people.add(c);
+//            }
+//            else{
+//                people.add(d);
+//            }
+//        }
+//        return people;
+//    }
 
-        Random r = new Random();
-
-        for (int i = 0; i < 10; i++){
-            int j = r.nextInt(4)+1;
-            if(j == 1){
-                people.add(a);
-            }
-            else if(j == 2){
-                people.add(b);
-            }
-            else if(j == 3){
-                people.add(c);
-            }
-            else{
-                people.add(d);
-            }
-        }
-        return people;
-    }
-
-    private void showDialog(){
-        ft = getSupportFragmentManager().beginTransaction();
-        dialog = NewPersonDialog.newInstance();
-        dialog.show(ft, null);
-    }
-
-    @Override
-    public void dataSaved() {
-        dialog.dismiss();
-    }
-
-    @Override
-    public void saveStatus(int i) {
-        if(i == 0){
-            Toast.makeText(this, "Save failed", Toast.LENGTH_LONG).show();
-        }
-        else {
-            Toast.makeText(this, "Save successful", Toast.LENGTH_LONG).show();
-        }
-    }
+//    private void showDialog(){
+//        ft = getSupportFragmentManager().beginTransaction();
+//        dialog = NewPersonDialog.newInstance();
+//        dialog.show(ft, null);
+//    }
+//
+//    @Override
+//    public void dataSaved() {
+//        dialog.dismiss();
+//    }
+//
+//    @Override
+//    public void saveStatus(int i) {
+//        if(i == 0){
+//            Toast.makeText(this, "Save failed", Toast.LENGTH_LONG).show();
+//        }
+//        else {
+//            Toast.makeText(this, "Save successful", Toast.LENGTH_LONG).show();
+//        }
+//    }
 }
