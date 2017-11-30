@@ -17,7 +17,8 @@ public class Utils {
     private static ArrayList<TaskItem> tasks;
     public Utils() {
        mDatabase  = FirebaseDatabase.getInstance().getReference();
-        tasks = null;
+       tasks = null;
+
     }
 
     public void addUser(Person p){
