@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -46,16 +45,16 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
 
+        Bundle b = getIntent().getExtras();
+        nameView = (TextView)findViewById(R.id.newTaskName);
+        descriptionView = (TextView)findViewById(R.id.newNote);
+
         util = new Utils();
 
-        task = new TaskItem();
         items = new ArrayList<>();
         itemB = new ArrayList<>();
         realItems = new ArrayList<>();
         addItems();
-
-        nameView = (TextView)findViewById(R.id.newTaskName);
-        descriptionView = (TextView)findViewById(R.id.newNote);
 
         listView = (ListView) findViewById(R.id.equipment_grid);
         spinner = (Spinner)findViewById(R.id.equipment_spinner);
@@ -64,6 +63,28 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
         adapterB = new ArrayAdapter(this, R.layout.item_layout, itemB);
         spinner.setAdapter(adapter);
         listView.setAdapter(adapterB);
+
+        try {
+            task = b.getParcelable("task");
+        }catch (NullPointerException e){
+            task = null;
+        }
+
+        if(task == null){
+            task = new TaskItem();
+        }
+        else {
+            updateView();
+        }
+    }
+
+    public void updateView(){
+        nameView.setText(task.getName());
+        descriptionView.setText(task.getNote());
+        for (Item i : task.getEquiptment()){
+            itemB.add(i.getName());
+            adapterB.notifyDataSetChanged();
+        }
     }
 
     private void addItems(){
@@ -87,7 +108,7 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.neew_task_menu, menu);
+        inflater.inflate(R.menu.new_task_menu, menu);
         return true;
     }
 
@@ -112,6 +133,7 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
         task.setName(name);
         task.setNote(note);
         task.setEquiptment(realItems);
+        task.setStatus(0);
         boolean state = true;
         if(TextUtils.isEmpty(name)){
             nameView.setError("Please fill name");

@@ -8,13 +8,16 @@ import android.view.View;
 
 import com.example.beajo.choremanager2.R;
 import com.example.beajo.choremanager2.Utils;
+import com.example.beajo.choremanager2.model.Item;
 import com.example.beajo.choremanager2.model.Person;
+import com.example.beajo.choremanager2.model.TaskItem;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.ResultCodes;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,6 +37,24 @@ public class ActivityChoreList extends AppCompatActivity {
         util = new Utils();
         util.downloadPeople();
         util.downloadTasks();
+
+//        ArrayList<Item> items = new ArrayList<>();
+//        items.add(new Item("Broom", 0));
+//        items.add(new Item("Broom", 0));
+//
+//        Bundle bundle = new Bundle();
+//        TaskItem t = new TaskItem();
+//        t.setName("Timi");
+//        t.setStatus(0);
+//        t.setNote("gifjgf hfdi fuh xuhd xeuhe xuheu xeheuhr xeeherh xererhe xeurh xeurhe xuerheur" +
+//                " xereurh xeruh xeureu xeurheu erheuwirh xrwrh xurhr xeurhweurh erhe");
+//        t.setPersonAssigned(null);
+//        t.setEquiptment(items);
+//        bundle.putParcelable("Task", t);
+//        Intent otherIntent = new Intent(getApplicationContext(), TaskIndividualActivity.class);
+//        otherIntent.putExtras(bundle);
+//        startActivity(otherIntent);
+//        finish();
     }
 
     @Override
