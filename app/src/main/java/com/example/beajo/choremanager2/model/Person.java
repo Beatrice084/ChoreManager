@@ -1,10 +1,12 @@
 package com.example.beajo.choremanager2.model;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by oguns on 11/27/2017.
  */
 
-public class Person {
+public class Person implements Comparable<Person> {
     String name, uid, email;
     int gender, points;
 
@@ -48,5 +50,10 @@ public class Person {
 
     public void setGender(int gender) {
         this.gender = gender;
+    }
+
+    @Override
+    public int compareTo(@NonNull Person o) {
+        return uid.compareTo(o.getUid());
     }
 }
