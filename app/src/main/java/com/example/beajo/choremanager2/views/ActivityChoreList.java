@@ -32,7 +32,7 @@ public class ActivityChoreList extends AppCompatActivity {
         setContentView(R.layout.activity_chore_list);
         Log.d(TAG, "home");
         util = new Utils();
-        util.getPeople();
+        util.downloadPeople();
     }
 
     @Override
