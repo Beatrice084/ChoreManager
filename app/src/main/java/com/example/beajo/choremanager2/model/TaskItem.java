@@ -95,6 +95,8 @@ public class TaskItem implements Comparable<TaskItem>,Parcelable {
         this.equipment = equipment;
     }
 
+
+
     public String getId() {
         return id;
     }

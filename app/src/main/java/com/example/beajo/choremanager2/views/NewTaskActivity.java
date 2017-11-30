@@ -100,9 +100,11 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
     public void updateView(){
         nameView.setText(task.getName());
         descriptionView.setText(task.getNote());
-        for (Item i : task.getEquipment()){
-            itemB.add(i.getName());
-            adapterB.notifyDataSetChanged();
+        if(task.getEquipment() != null) {
+            for (Item i : task.getEquipment()) {
+                itemB.add(i.getName());
+                adapterB.notifyDataSetChanged();
+            }
         }
     }
 

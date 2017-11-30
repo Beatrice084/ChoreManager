@@ -93,8 +93,10 @@ public class TaskIndividualActivity extends AppCompatActivity implements Adapter
         notesView.setText(t.getNote());
         spinner.setSelection(t.getStatus());
         items.clear();
-        for (Item i : t.getEquipment()){
-            items.add(i.getName());
+        if(t.getEquipment() != null) {
+            for (Item i : t.getEquipment()) {
+                items.add(i.getName());
+            }
         }
         listAdapter.notifyDataSetChanged();
     }
