@@ -154,6 +154,7 @@ public class ToolsActivity extends AppCompatActivity {
         Tool tool = new Tool(id, name);
         dR.setValue(tool);
         Toast.makeText(getApplicationContext(), "Tool Updated", Toast.LENGTH_LONG).show();
+
     }
 
     private boolean deleteTool(String id) {
