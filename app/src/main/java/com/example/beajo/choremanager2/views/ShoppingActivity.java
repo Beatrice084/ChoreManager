@@ -18,17 +18,19 @@ public class ShoppingActivity extends AppCompatActivity {
     public void peopleButtonClick(View view){//Starts people_list activity
         Intent peopleIntent = new Intent(getApplicationContext(), PeopleActivity.class);
         startActivity(peopleIntent);
-
+        finish();
     }
 
     public void otherButtonClick(View view){//Starts other activity
         Intent otherIntent = new Intent(getApplicationContext(), OtherActivity.class);
         startActivity(otherIntent);
+        finish();
     }
 
     public void tasksButtonClick(View view){//Starts ChoreList activity
         Intent tasksIntent = new Intent(getApplicationContext(), ActivityChoreList.class);
         startActivity(tasksIntent);
+        finish();
     }
 
 }

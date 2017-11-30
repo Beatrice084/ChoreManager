@@ -20,14 +20,13 @@
         <activity android:name=".views.ToolsActivity" />
         <activity android:name=".views.CupboardFridgeActivity" />
         <activity android:name=".views.OtherActivity" />
-        <activity android:name=".PeopleListActivity" />
-        <activity android:name=".views.SwitchUserActivity" />
         <activity android:name=".views.TaskIndividualActivity" />
         <activity android:name=".views.PersonIndividualActivity" />
         <activity
             android:name=".views.PeopleActivity"
             android:label="@string/title_activity_people"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".views.newTask"></activity>
     </application>
 
 </manifest>

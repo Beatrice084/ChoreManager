@@ -16,4 +16,12 @@
     <string name="person_name">John Doe</string>
     <string name="person_allocated_tasks">Allocate Tasks: 1</string>
     <string name="person_next_task">Go shopping</string>
+    <string name="male_gender">Male</string>
+    <string name="female_gender">Female</string>
+    <string name="save_person">SAVE</string>
+    <string name="name_hint">Name</string>
+    <string name="TaskName">Task Name:</string>
+    <string name="EnterDesc">Enter a description...</string>
+    <string name="EnterNote">Note:</string>
+    <string name="RequireEquipment">Require Equipment:</string>
 </resources>
