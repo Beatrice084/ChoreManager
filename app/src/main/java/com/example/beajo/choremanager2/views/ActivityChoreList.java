@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.beajo.choremanager2.R;
 import com.example.beajo.choremanager2.Utils;
 import com.example.beajo.choremanager2.adapters.TaskAdapter;
+import com.example.beajo.choremanager2.model.Item;
 import com.example.beajo.choremanager2.model.Person;
 import com.example.beajo.choremanager2.model.TaskItem;
 import com.firebase.ui.auth.AuthUI;
@@ -67,7 +68,6 @@ public class ActivityChoreList extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 
     @Override

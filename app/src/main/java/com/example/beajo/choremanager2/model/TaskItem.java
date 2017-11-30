@@ -16,16 +16,25 @@ public class TaskItem implements Comparable<TaskItem>,Parcelable {
     private String personAssigned;
     private String note;
     private int status;
-    private ArrayList<Item> equiptment;
+    private ArrayList<Item> equiptment = new ArrayList<>();
+    String uid = null;
 
-    public TaskItem() {
-    }
 
-    public TaskItem(String name, String personAssigned, String note, ArrayList<Item> equiptment){
+    public TaskItem() {}
+
+
+    public TaskItem(String name, String personAssigned, String note, ArrayList<Item> equipment){
         this.name = name;
         this.personAssigned = personAssigned;
         this.note = note;
-        this.equiptment = equiptment;
+        this.equipment = equipment;
+
+    }
+    public TaskItem(String name, String personAssigned, String note){
+        this.name = name;
+        this.personAssigned = personAssigned;
+        this.note = note;
+        this.equipment = new ArrayList<Item>();
 
     }
 
@@ -54,12 +63,12 @@ public class TaskItem implements Comparable<TaskItem>,Parcelable {
         this.note = note;
     }
 
-    public ArrayList<Item> getEquiptment() {
-        return equiptment;
+    public ArrayList<Item> getEquipment() {
+        return equipment;
     }
 
-    public void setEquiptment(ArrayList<Item> equiptment) {
-        this.equiptment = equiptment;
+    public void addEquipment(Item item) {
+        this.equipment.add(item);
     }
 
     public int getStatus() {
@@ -70,6 +79,17 @@ public class TaskItem implements Comparable<TaskItem>,Parcelable {
         this.status = status;
     }
 
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public void addEquipment(Item item){
+        equiptment.add(item);
+    }
 
     @Override
     public int compareTo(@NonNull TaskItem o) {
@@ -87,7 +107,8 @@ public class TaskItem implements Comparable<TaskItem>,Parcelable {
         dest.writeString(this.personAssigned);
         dest.writeString(this.note);
         dest.writeInt(this.status);
-        dest.writeList(this.equiptment);
+        dest.writeTypedList(this.equiptment);
+        dest.writeString(this.uid);
     }
 
     protected TaskItem(Parcel in) {
@@ -100,6 +121,11 @@ public class TaskItem implements Comparable<TaskItem>,Parcelable {
     }
 
     public static final Parcelable.Creator<TaskItem> CREATOR = new Parcelable.Creator<TaskItem>() {
+        this.equiptment = in.createTypedArrayList(Item.CREATOR);
+        this.uid = in.readString();
+    }
+
+    public static final Creator<TaskItem> CREATOR = new Creator<TaskItem>() {
         @Override
         public TaskItem createFromParcel(Parcel source) {
             return new TaskItem(source);

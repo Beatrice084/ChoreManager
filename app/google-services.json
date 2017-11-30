@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "38861389958-ji9ubfnnni865l1g00qiavlsdfsujsg8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.beajo.choremanager2",
+            "certificate_hash": "a333888e524acd5e4a4a4091b0d80b4043b50375"
+          }
+        },
+        {
           "client_id": "38861389958-04fc0k0ai2e7ba35utf8iveok3cc4orc.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

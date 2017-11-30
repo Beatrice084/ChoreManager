@@ -43,6 +43,7 @@ public class Utils {
             TaskItem current = iterator.next();
             if (current.getPersonAssigned() == null){
 
+
             }
             else if(current.getPersonAssigned().equals(uid)){
                 myTasks.add(current);
@@ -125,8 +126,20 @@ public class Utils {
     }
 
     public void saveTask(TaskItem task){
-        DatabaseReference peopleReference = mDatabase.child("Tasks");
-        peopleReference.push().setValue(task);
+        DatabaseReference peopleReference = mDatabase.child("Tasks").push();
+        if(task.getUid() == null){
+            Log.d(TAG, "is null");
+            String key = peopleReference.getKey();
+            task.setUid(key);
+            peopleReference.setValue(task);
+
+        }
+        else {
+            Log.d(TAG, "not null");
+            mDatabase.child("Tasks").child(task.getUid()).setValue(task);
+
+        }
+
     }
 
     public ArrayList<TaskItem> getTasks(){
