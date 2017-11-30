@@ -39,6 +39,7 @@ public class TaskItem implements Comparable<TaskItem>,Parcelable {
 
     }
 
+
     public String getName(){
         return this.name;
     }
@@ -107,7 +108,6 @@ public class TaskItem implements Comparable<TaskItem>,Parcelable {
         return name.compareTo(o.getName());
     }
 
-
     @Override
     public int describeContents() {
         return 0;
@@ -130,6 +130,7 @@ public class TaskItem implements Comparable<TaskItem>,Parcelable {
         this.note = in.readString();
         this.status = in.readInt();
         this.equipment = in.createTypedArrayList(Item.CREATOR);
+
         this.uid = in.readString();
         this.id = in.readString();
     }

@@ -53,8 +53,10 @@ public class Utils {
         Iterator<TaskItem> iterator = tasks.iterator();
         while(iterator.hasNext()){
             TaskItem current = iterator.next();
+          
             if(current.getUid()==null){
                 Log.d(TAG, "Person is null");
+
             }
             else if(current.getUid().equals(uid)){
                 Log.d(TAG, "task added");

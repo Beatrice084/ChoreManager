@@ -65,6 +65,11 @@
             android:layout_height="50dp"
             android:orientation="horizontal">
 
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
             <Button
                 android:id="@+id/newTask"
                 android:layout_width="wrap_content"
@@ -80,16 +85,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
-            <Switch
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Only show my tasks" />
         </LinearLayout>
 
         <ListView
             android:id="@+id/taskList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:descendantFocusability="blocksDescendants" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
