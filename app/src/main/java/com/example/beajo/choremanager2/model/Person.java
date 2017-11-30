@@ -55,6 +55,10 @@ public class Person implements Comparable<Person>,Parcelable {
         this.gender = gender;
     }
 
+    public int getPoints(){return points;}
+
+    public void incPoints(){this.points++;}
+
     @Override
     public int compareTo(@NonNull Person o) {
         return uid.compareTo(o.getUid());

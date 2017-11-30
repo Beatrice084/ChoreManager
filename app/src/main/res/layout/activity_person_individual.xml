@@ -40,6 +40,20 @@
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
 
+            <TextView
+                android:id="@+id/points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="40dp"
+                android:text="Points:" />
+
+            <TextView
+                android:id="@+id/personsPoints"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
 
         </LinearLayout>
 
