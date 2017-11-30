@@ -1,12 +1,14 @@
 package com.example.beajo.choremanager2.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 /**
  * Created by oguns on 11/27/2017.
  */
 
-public class Person implements Comparable<Person> {
+public class Person implements Comparable<Person>,Parcelable {
     String name, uid, email;
     int gender, points;
 
@@ -19,6 +21,7 @@ public class Person implements Comparable<Person> {
         this.email = email;
         this.gender = gender;
     }
+
 
     public String getName() {
         return name;
@@ -56,4 +59,38 @@ public class Person implements Comparable<Person> {
     public int compareTo(@NonNull Person o) {
         return uid.compareTo(o.getUid());
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeString(this.uid);
+        dest.writeString(this.email);
+        dest.writeInt(this.gender);
+        dest.writeInt(this.points);
+    }
+
+    protected Person(Parcel in) {
+        this.name = in.readString();
+        this.uid = in.readString();
+        this.email = in.readString();
+        this.gender = in.readInt();
+        this.points = in.readInt();
+    }
+
+    public static final Parcelable.Creator<Person> CREATOR = new Parcelable.Creator<Person>() {
+        @Override
+        public Person createFromParcel(Parcel source) {
+            return new Person(source);
+        }
+
+        @Override
+        public Person[] newArray(int size) {
+            return new Person[size];
+        }
+    };
 }
