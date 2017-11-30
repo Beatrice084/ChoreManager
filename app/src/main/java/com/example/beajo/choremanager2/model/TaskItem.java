@@ -1,18 +1,25 @@
 package com.example.beajo.choremanager2.model;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Created by saheed on 2017-11-26.
  */
 
-public class TaskItem {
+public class TaskItem implements Comparable<TaskItem> {
     private String name;
-    private Person personAssigned;
+    private String personAssigned;
     private String note;
     private int status;
     private ArrayList<Item> equiptment;
-    public TaskItem(String name, Person personAssigned, String note, ArrayList<Item> equiptment){
+
+    public TaskItem() {
+    }
+
+    public TaskItem(String name, String personAssigned, String note, ArrayList<Item> equiptment){
         this.name = name;
         this.personAssigned = personAssigned;
         this.note = note;
@@ -28,11 +35,11 @@ public class TaskItem {
         this.name = name;
     }
 
-    public Person getPersonAssigned(){
+    public String getPersonAssigned(){
         return this.personAssigned;
     }
 
-    public void setPersonAssigned(Person personAssigned){
+    public void setPersonAssigned(String personAssigned){
         this.personAssigned = personAssigned;
     }
 
@@ -58,5 +65,11 @@ public class TaskItem {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+
+    @Override
+    public int compareTo(@NonNull TaskItem o) {
+        return name.compareTo(o.getName());
     }
 }
