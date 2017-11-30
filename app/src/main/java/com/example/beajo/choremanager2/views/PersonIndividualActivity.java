@@ -6,7 +6,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.beajo.choremanager2.R;
+import com.example.beajo.choremanager2.Utils;
+import com.example.beajo.choremanager2.adapters.TaskAdapter;
 import com.example.beajo.choremanager2.model.Person;
+import com.example.beajo.choremanager2.model.TaskItem;
+
+import java.util.ArrayList;
 
 public class PersonIndividualActivity extends AppCompatActivity {
     private ListView currentTasks;
@@ -29,6 +34,15 @@ public class PersonIndividualActivity extends AppCompatActivity {
         t1.setText(Integer.toString(p.getPoints()));
 
         currentTasks = (ListView)findViewById(R.id.currentList);
+
+        ArrayList<TaskItem> tasks = Utils.getTasks(p.getUid());
+        TaskAdapter adp = new TaskAdapter(this,tasks);
+        currentTasks.setAdapter(adp);
+
+
+//        for(TaskItem oneTask:tasks){
+//            currentTasks = (ListView)findViewById(R.id.currentList);
+//        }
 
 
 
