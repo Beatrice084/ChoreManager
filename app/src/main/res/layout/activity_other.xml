@@ -75,17 +75,5 @@
             android:onClick="toolButtonClick"
             android:text=" Broom Closet (Tools)" />
 
-        <Button
-            android:id="@+id/settings"
-            android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:text="Settings" />
-
-        <Button
-            android:id="@+id/switchUser"
-            android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:text="Switch User" />
-
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

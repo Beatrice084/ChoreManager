@@ -72,6 +72,7 @@
                 android:layout_marginRight="1dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
+                android:onClick="newtask"
                 android:text="New Task" />
 
             <Space
