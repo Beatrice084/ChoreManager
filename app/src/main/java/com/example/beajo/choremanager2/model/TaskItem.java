@@ -16,7 +16,9 @@ public class TaskItem implements Comparable<TaskItem> {
     private int status;
     private ArrayList<Item> equipment;
 
-    public TaskItem() {}
+    public TaskItem() {
+        this.equipment = new ArrayList<Item>();
+    }
 
 
     public TaskItem(String name, String personAssigned, String note, ArrayList<Item> equipment){
@@ -64,6 +66,10 @@ public class TaskItem implements Comparable<TaskItem> {
 
     public void addEquipment(Item item) {
         this.equipment.add(item);
+    }
+
+    public void setEquipment(ArrayList<Item> equipment){
+        this.equipment = equipment;
     }
 
     public int getStatus() {

@@ -111,7 +111,7 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
         String note = descriptionView.getText().toString();
         task.setName(name);
         task.setNote(note);
-        task.setEquiptment(realItems);
+        task.setEquipment(realItems);
         boolean state = true;
         if(TextUtils.isEmpty(name)){
             nameView.setError("Please fill name");
