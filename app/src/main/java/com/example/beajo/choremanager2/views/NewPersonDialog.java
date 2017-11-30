@@ -15,7 +15,6 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.beajo.choremanager2.MyDBHandler;
-import com.example.beajo.choremanager2.Person;
 import com.example.beajo.choremanager2.R;
 
 /**

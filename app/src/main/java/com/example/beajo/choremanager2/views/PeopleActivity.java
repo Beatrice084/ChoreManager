@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
+import com.example.beajo.choremanager2.MyDBHandler;
 import com.example.beajo.choremanager2.model.Person;
 
 import com.example.beajo.choremanager2.R;
@@ -27,7 +28,6 @@ public class PeopleActivity extends AppCompatActivity {
     FragmentTransaction ft;
     PersonAdapter adapter;
     private final String TAG = PeopleActivity.class.getSimpleName();
-    MyDBHandler db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +35,6 @@ public class PeopleActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        db = new MyDBHandler(this);
 
         ListView peopleList = (ListView)findViewById(R.id.list);
         //p = getRandmonPeople();
