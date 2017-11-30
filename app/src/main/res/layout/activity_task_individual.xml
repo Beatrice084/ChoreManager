@@ -82,12 +82,12 @@
                 android:textStyle="bold" />
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/statusSpin"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
                 android:layout_weight="1"
                 android:entries="@array/drop_list"
-                android:prompt="@string/listPrompt"/>
+                android:prompt="@string/listPrompt" />
         </LinearLayout>
 
         <TextView

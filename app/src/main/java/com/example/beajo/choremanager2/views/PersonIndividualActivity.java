@@ -23,6 +23,11 @@ public class PersonIndividualActivity extends AppCompatActivity {
 
         t.setText(p.getName());
 
+        TextView t1 = new TextView(this);
+        t1=(TextView)findViewById(R.id.personsPoints);
+
+        t1.setText(Integer.toString(p.getPoints()));
+
         currentTasks = (ListView)findViewById(R.id.currentList);
 
 
