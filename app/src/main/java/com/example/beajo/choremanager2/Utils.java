@@ -27,13 +27,13 @@ public class Utils {
     public Utils() {
        mDatabase  = FirebaseDatabase.getInstance().getReference();
        tasks = null;
-
     }
 
     public void addUser(Person p){
         DatabaseReference peopleReference = mDatabase.child("People/"+p.getUid());
         peopleReference.setValue(p);
     }
+
     public static ArrayList<TaskItem> getTasks(String uid){
         ArrayList<TaskItem> myTasks = new ArrayList<>();
         Iterator<TaskItem> iterator = tasks.iterator();
