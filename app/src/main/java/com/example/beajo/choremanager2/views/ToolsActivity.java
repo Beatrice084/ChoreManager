@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.example.beajo.choremanager2.Tool;
 import com.example.beajo.choremanager2.ToolList;
+import com.example.beajo.choremanager2.Utils;
+import com.example.beajo.choremanager2.model.Item;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,7 +47,8 @@ public class ToolsActivity extends AppCompatActivity {
     Button buttonAddTool;
     ListView listViewTools;
 
-    List<Tool> tools;
+    List<Item> tools;
+    Utils utils;
 
     DatabaseReference databaseTools;
     @Override
@@ -57,7 +60,7 @@ public class ToolsActivity extends AppCompatActivity {
         editToolName = (EditText) findViewById(R.id.editToolName);
         listViewTools = (ListView) findViewById(R.id.listViewTools);
         buttonAddTool = (Button) findViewById(R.id.addButton);
-
+        utils = new Utils();
         tools = new ArrayList<>();
 
         //adding an onclicklistener to button
@@ -71,8 +74,8 @@ public class ToolsActivity extends AppCompatActivity {
         listViewTools.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Tool tool = tools.get(i);
-                showUpdateDeleteDialog(tool.getId(), tool.getToolName());
+                Item tool = tools.get(i);
+                showUpdateDeleteDialog(tool.getId(), tool.getName());
                 return true;
             }
         });
@@ -92,7 +95,7 @@ public class ToolsActivity extends AppCompatActivity {
                 //iterating through all the nodes
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     //getting tool
-                    Tool tool = postSnapshot.getValue(Tool.class);
+                    Item tool = postSnapshot.getValue(Item.class);
                     //adding tool to the list
                     tools.add(tool);
                 }
@@ -151,7 +154,7 @@ public class ToolsActivity extends AppCompatActivity {
         //getting the specified tool reference
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("tools").child(id);
         //updating tool
-        Tool tool = new Tool(id, name);
+        Item tool = new Item(name,0, null);
         dR.setValue(tool);
         Toast.makeText(getApplicationContext(), "Tool Updated", Toast.LENGTH_LONG).show();
 
@@ -178,7 +181,7 @@ public class ToolsActivity extends AppCompatActivity {
             String id = databaseTools.push().getKey();
 
             //creating an tool Object
-            Tool tool = new Tool(id, name);
+            Item tool = new Item(name, 0, null);
 
             //Saving the Tool
             databaseTools.child(id).setValue(tool);

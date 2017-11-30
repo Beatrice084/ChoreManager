@@ -40,7 +40,8 @@
     <Spinner
         android:id="@+id/equipment_spinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:prompt="@string/res_prompt" />
 
     <TextView
             android:id="@+id/ReqEquip"

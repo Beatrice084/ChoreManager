@@ -24,4 +24,5 @@
     <string name="EnterDesc">Enter a description...</string>
     <string name="EnterNote">Note:</string>
     <string name="RequireEquipment">Require Equipment:</string>
+    <string name="res_prompt">Resources</string>
 </resources>

@@ -20,6 +20,7 @@ import java.util.ArrayList;
  */
 
 public class PersonAdapter extends ArrayAdapter<Person> {
+    public static final String key = PersonAdapter.class.getSimpleName();
     public PersonAdapter(@NonNull Context context, ArrayList<Person> people) {
         super(context, 0, people);
     }
@@ -38,5 +39,7 @@ public class PersonAdapter extends ArrayAdapter<Person> {
         return v;
     }
 
-
+    public static String getKey() {
+        return key;
+    }
 }

@@ -16,8 +16,9 @@ public class TaskItem implements Comparable<TaskItem>,Parcelable {
     private String personAssigned;
     private String note;
     private int status;
-    private ArrayList<Item> equiptment = new ArrayList<>();
+    private ArrayList<Item> equipment;
     String uid = null;
+    String id = null;
 
 
     public TaskItem() {}
@@ -68,6 +69,9 @@ public class TaskItem implements Comparable<TaskItem>,Parcelable {
     }
 
     public void addEquipment(Item item) {
+        if(this.equipment == null){
+            this.equipment = new ArrayList<>();
+        }
         this.equipment.add(item);
     }
 
@@ -87,8 +91,16 @@ public class TaskItem implements Comparable<TaskItem>,Parcelable {
         this.uid = uid;
     }
 
-    public void addEquipment(Item item){
-        equiptment.add(item);
+    public void setEquipment(ArrayList<Item> equipment) {
+        this.equipment = equipment;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override
@@ -107,8 +119,9 @@ public class TaskItem implements Comparable<TaskItem>,Parcelable {
         dest.writeString(this.personAssigned);
         dest.writeString(this.note);
         dest.writeInt(this.status);
-        dest.writeTypedList(this.equiptment);
+        dest.writeTypedList(this.equipment);
         dest.writeString(this.uid);
+        dest.writeString(this.id);
     }
 
     protected TaskItem(Parcel in) {
@@ -116,13 +129,10 @@ public class TaskItem implements Comparable<TaskItem>,Parcelable {
         this.personAssigned = in.readString();
         this.note = in.readString();
         this.status = in.readInt();
-        this.equiptment = new ArrayList<Item>();
-        in.readList(this.equiptment, Item.class.getClassLoader());
-    }
+        this.equipment = in.createTypedArrayList(Item.CREATOR);
 
-    public static final Parcelable.Creator<TaskItem> CREATOR = new Parcelable.Creator<TaskItem>() {
-        this.equiptment = in.createTypedArrayList(Item.CREATOR);
         this.uid = in.readString();
+        this.id = in.readString();
     }
 
     public static final Creator<TaskItem> CREATOR = new Creator<TaskItem>() {

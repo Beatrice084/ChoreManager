@@ -1,7 +1,11 @@
 package com.example.beajo.choremanager2.views;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -15,6 +19,8 @@ import java.util.ArrayList;
 
 public class PersonIndividualActivity extends AppCompatActivity {
     private ListView currentTasks;
+    TaskAdapter taskAdapter;
+    Utils util;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,33 +29,40 @@ public class PersonIndividualActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         Person p = bundle.getParcelable("person");
 
-        TextView t = new TextView(this);
-        t=(TextView)findViewById(R.id.personName2);
+        TextView t=(TextView)findViewById(R.id.personName2);
 
         t.setText(p.getName());
 
-        TextView t1 = new TextView(this);
-        t1=(TextView)findViewById(R.id.personsPoints);
+        TextView t1=(TextView)findViewById(R.id.personsPoints);
 
         t1.setText(Integer.toString(p.getPoints()));
 
         currentTasks = (ListView)findViewById(R.id.currentList);
+        util = new Utils();
+
+        taskAdapter = new TaskAdapter(this, util.getTasks(p.getUid()));
+        util.registerAdapter(taskAdapter.getKey(), taskAdapter);
+        currentTasks.setAdapter(taskAdapter);
+
+        currentTasks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                startTaskIndividual(util.getTasks().get(position));
+            }
+        });
 
         ArrayList<TaskItem> tasks = Utils.getTasks(p.getUid());
         TaskAdapter adp = new TaskAdapter(this,tasks);
         currentTasks.setAdapter(adp);
 
+    }
 
-//        for(TaskItem oneTask:tasks){
-//            currentTasks = (ListView)findViewById(R.id.currentList);
-//        }
-
-
-
-
-
-
-
+    public void startTaskIndividual(TaskItem taskItem){
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("task", taskItem);
+        Intent intent = new Intent(PersonIndividualActivity.this, TaskIndividualActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
 
     }
 }

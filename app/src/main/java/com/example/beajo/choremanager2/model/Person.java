@@ -57,7 +57,13 @@ public class Person implements Comparable<Person>,Parcelable {
 
     public int getPoints(){return points;}
 
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
     public void incPoints(){this.points++;}
+
+    public void decPoints(){this.points--;}
 
     @Override
     public int compareTo(@NonNull Person o) {

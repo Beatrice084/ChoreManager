@@ -1,6 +1,7 @@
 package com.example.beajo.choremanager2.views;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,15 +20,18 @@ import android.widget.TextView;
 import com.example.beajo.choremanager2.R;
 import com.example.beajo.choremanager2.Utils;
 import com.example.beajo.choremanager2.model.Item;
+import com.example.beajo.choremanager2.model.Person;
 import com.example.beajo.choremanager2.model.TaskItem;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-public class TaskIndividualActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class TaskIndividualActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, PeopleDialog.PeopleDialogListener {
 
     private ListView requiredEquipment;
     private ImageView personIcon;
-    TextView personName;
+    TextView personName, notesView, titleView;
     Button release;
     Spinner spinner;
     ArrayList<String> items;
@@ -42,13 +46,15 @@ public class TaskIndividualActivity extends AppCompatActivity implements Adapter
         setContentView(R.layout.activity_task_individual);
         util = new Utils();
         Bundle bundle = getIntent().getExtras();
-        t = bundle.getParcelable("Task");
+
         items = new ArrayList<>();
         spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.status, R.layout.item_layout);
         listAdapter = new ArrayAdapter(this, R.layout.item_layout, items);
 
-
+        personIcon = (ImageView)findViewById(R.id.personIcon);
         personName = (TextView) findViewById(R.id.personName);
+        notesView = (TextView) findViewById(R.id.noteView);
+        titleView = (TextView) findViewById(R.id.title);
         release = (Button) findViewById(R.id.releaseButton);
         spinner = (Spinner) findViewById(R.id.statusSpin);
         spinner.setAdapter(spinnerAdapter);
@@ -56,18 +62,41 @@ public class TaskIndividualActivity extends AppCompatActivity implements Adapter
 
         requiredEquipment = (ListView)findViewById(R.id.equipmentList);
         requiredEquipment.setAdapter(listAdapter);
-        updateView();
+
+        personName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog();
+            }
+        });
+
+        t = bundle.getParcelable("task");
+        if(t != null){
+            updateView();
+        }
 
 
     }
 
     public void updateView(){
-        personName.setText(t.getName());
-        spinner.setSelection(t.getStatus());
-        for (Item i : t.getEquiptment()){
-            items.add(i.getName());
-            listAdapter.notifyDataSetChanged();
+        int index = util.binarySearchPerson(t.getUid());
+        Person p;
+        if(index > -1){
+            p = util.getPeople().get(index);
+            personName.setText(p.getName());
+            personIcon.setImageResource(p.getGender());
         }
+        else {
+            personName.setText("Not assigned");
+        }
+        titleView.setText(t.getName());
+        notesView.setText(t.getNote());
+        spinner.setSelection(t.getStatus());
+        items.clear();
+        for (Item i : t.getEquipment()){
+            items.add(i.getName());
+        }
+        listAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -87,6 +116,10 @@ public class TaskIndividualActivity extends AppCompatActivity implements Adapter
                 intent.putExtras(bundle);
                 startActivity(intent);
                 return true;
+            case R.id.delete_button:
+                util.deleteTask(t);
+                finish();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -101,5 +134,24 @@ public class TaskIndividualActivity extends AppCompatActivity implements Adapter
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    public void realeaseClick(View v){
+        t.setUid(null);
+        util.saveTask(t);
+        updateView();
+    }
+
+    @Override
+    public void personClicked(Person p) {
+        t.setUid(p.getUid());
+        util.saveTask(t);
+        updateView();
+    }
+
+    public void openDialog(){
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        PeopleDialog peopleDialog = new PeopleDialog();
+        peopleDialog.show(ft, null);
     }
 }

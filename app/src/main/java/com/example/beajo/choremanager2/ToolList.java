@@ -10,13 +10,16 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.beajo.choremanager2.model.Item;
+
 import java.util.List;
 
-public class ToolList extends ArrayAdapter<Tool>{
+public class ToolList extends ArrayAdapter<Item>{
     private Activity context;
-    List<Tool> tools;
+    List<Item> tools;
+    public static final String key = ToolList.class.getSimpleName();
 
-    public ToolList(Activity context, List<Tool> tools) {
+    public ToolList(Activity context, List<Item> tools) {
         super(context, R.layout.layout_tool_list, tools);
         this.context = context;
         this.tools = tools;
@@ -29,8 +32,12 @@ public class ToolList extends ArrayAdapter<Tool>{
 
         TextView textViewName = (TextView) listViewItem.findViewById(R.id.textViewName);
 
-        Tool tool = tools.get(position);
-        textViewName.setText(tool.getToolName());
+        Item tool = tools.get(position);
+        textViewName.setText(tool.getName());
         return listViewItem;
+    }
+
+    public static String getKey() {
+        return key;
     }
 }
