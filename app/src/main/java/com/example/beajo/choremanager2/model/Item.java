@@ -6,8 +6,12 @@ package com.example.beajo.choremanager2.model;
 
 public class Item {
     private String name;
-    private  final int type;
-    public Item(String name,int type){
+    private int type;
+
+    public Item() {
+    }
+
+    public Item(String name, int type){
         this.name = name;
         this.type = type;
     }

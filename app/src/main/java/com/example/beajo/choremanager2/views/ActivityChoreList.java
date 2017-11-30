@@ -33,6 +33,7 @@ public class ActivityChoreList extends AppCompatActivity {
         Log.d(TAG, "home");
         util = new Utils();
         util.downloadPeople();
+        util.downloadTasks();
     }
 
     @Override
@@ -97,6 +98,11 @@ public class ActivityChoreList extends AppCompatActivity {
         Intent otherIntent = new Intent(getApplicationContext(), OtherActivity.class);
         startActivity(otherIntent);
         finish();
+    }
+
+    public void newTaskButtonClick(View view){
+        Intent otherIntent = new Intent(getApplicationContext(), NewTaskActivity.class);
+        startActivity(otherIntent);
     }
 
 
