@@ -1,5 +1,7 @@
 package com.example.beajo.choremanager2.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
@@ -9,7 +11,7 @@ import java.util.Comparator;
  * Created by saheed on 2017-11-26.
  */
 
-public class TaskItem implements Comparable<TaskItem> {
+public class TaskItem implements Comparable<TaskItem>,Parcelable {
     private String name;
     private String personAssigned;
     private String note;
@@ -26,6 +28,7 @@ public class TaskItem implements Comparable<TaskItem> {
         this.equiptment = equiptment;
 
     }
+
 
     public String getName(){
         return this.name;
@@ -72,4 +75,39 @@ public class TaskItem implements Comparable<TaskItem> {
     public int compareTo(@NonNull TaskItem o) {
         return name.compareTo(o.getName());
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeString(this.personAssigned);
+        dest.writeString(this.note);
+        dest.writeInt(this.status);
+        dest.writeList(this.equiptment);
+    }
+
+    protected TaskItem(Parcel in) {
+        this.name = in.readString();
+        this.personAssigned = in.readString();
+        this.note = in.readString();
+        this.status = in.readInt();
+        this.equiptment = new ArrayList<Item>();
+        in.readList(this.equiptment, Item.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<TaskItem> CREATOR = new Parcelable.Creator<TaskItem>() {
+        @Override
+        public TaskItem createFromParcel(Parcel source) {
+            return new TaskItem(source);
+        }
+
+        @Override
+        public TaskItem[] newArray(int size) {
+            return new TaskItem[size];
+        }
+    };
 }

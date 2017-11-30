@@ -5,16 +5,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.CompoundButton;
+import android.widget.ListView;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import com.example.beajo.choremanager2.R;
 import com.example.beajo.choremanager2.Utils;
+import com.example.beajo.choremanager2.adapters.TaskAdapter;
 import com.example.beajo.choremanager2.model.Person;
+import com.example.beajo.choremanager2.model.TaskItem;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.ResultCodes;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,6 +35,9 @@ public class ActivityChoreList extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser mUser;
     Utils util;
+    TaskAdapter adapter;
+    ListView taskList;
+    ArrayList<TaskItem> t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +47,27 @@ public class ActivityChoreList extends AppCompatActivity {
         util = new Utils();
         util.downloadPeople();
         util.downloadTasks();
+
+        taskList = (ListView)findViewById(R.id.taskList);
+        t = util.getTasks();
+
+        adapter = new TaskAdapter(this, t);
+        taskList.setAdapter(adapter);
+
+        taskList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "Item clicked");
+                Toast.makeText(view.getContext(), t.get(position).getName(), Toast.LENGTH_SHORT).show();
+                Bundle b = new Bundle();
+                b.putParcelable("task", t.get(position));
+                Intent taskIntent = new Intent(getApplicationContext(), TaskIndividualActivity.class);
+                taskIntent.putExtras(b);
+                startActivity(taskIntent);
+                finish();
+            }
+        });
+
     }
 
     @Override
