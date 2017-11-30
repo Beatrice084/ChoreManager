@@ -172,7 +172,7 @@ public class Utils {
                 if(binarySearchItem(t) == -1){
                     tools.add(t);
                 }
-                callAdapters(ToolList.getKey());
+                callAdapters("ArrayAdapter");
             }
 
             @Override
@@ -186,7 +186,7 @@ public class Utils {
                 int index = binarySearchItem(t);
                 if(index > -1){
                     tools.remove(index);
-                    callAdapters(ToolList.getKey());
+                    callAdapters("ArrayAdapter");
                 }
             }
 
@@ -280,8 +280,30 @@ public class Utils {
         }
     }
 
+    public void saveTool(Item item){
+        DatabaseReference peopleReference;
+        if(item.getUid() == null){
+            Log.d(TAG, "is null");
+            peopleReference = mDatabase.child("tools").push();
+            String key = peopleReference.getKey();
+            item.setUid(key);
+            peopleReference.setValue(item);
+
+        }
+        else {
+            Log.d(TAG, "not null");
+            mDatabase.child("tools").child(item.getUid()).setValue(item);
+
+        }
+    }
+
     public void deleteItem(Item item){
         DatabaseReference ref = mDatabase.child("ShoppingList").child(item.getUid());
+        ref.removeValue();
+    }
+
+    public void deleteTool(Item item){
+        DatabaseReference ref = mDatabase.child("tools").child(item.getUid());
         ref.removeValue();
     }
 
@@ -291,6 +313,7 @@ public class Utils {
         Log.d(TAG, "Saving person");
         mDatabase.child("People").child(person.getUid()).setValue(person);
     }
+
     public void updateScore(String uid, int type){
         int index = binarySearchPerson(uid);
         Log.d(TAG, "searching for person");
@@ -331,6 +354,8 @@ public class Utils {
     public ArrayList<Item> getTools(){
         return tools;
     }
+
+
 
     public static ArrayList<Item> getShoppingList() {
         return shoppingList;

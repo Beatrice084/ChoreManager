@@ -155,6 +155,7 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
         task.setName(name);
         task.setNote(note);
         //task.setEquipment(realItems);
+        if(task.getEquipment() != null)
         task.getEquipment().clear();
         for(Item i : realItems){
             task.addEquipment(i);

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -47,7 +48,9 @@ public class ToolsActivity extends AppCompatActivity {
     Button buttonAddTool;
     ListView listViewTools;
 
-    List<Item> tools;
+    ArrayList<Item> tools;
+    ArrayList<String> toolsString;
+    ArrayAdapter<String> adapter;
     Utils utils;
 
     DatabaseReference databaseTools;
@@ -61,7 +64,12 @@ public class ToolsActivity extends AppCompatActivity {
         listViewTools = (ListView) findViewById(R.id.listViewTools);
         buttonAddTool = (Button) findViewById(R.id.addButton);
         utils = new Utils();
-        tools = new ArrayList<>();
+        tools = utils.getTools();
+        toolsString = new ArrayList<>();
+        copyList();
+        adapter = new ArrayAdapter<>(this, R.layout.item_layout, toolsString);
+        utils.registerAdapter("ArrayAdapter", adapter);
+        listViewTools.setAdapter(adapter);
 
         //adding an onclicklistener to button
         buttonAddTool.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +83,7 @@ public class ToolsActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Item tool = tools.get(i);
-                showUpdateDeleteDialog(tool.getId(), tool.getName());
+                showUpdateDeleteDialog(tool, i);
                 return true;
             }
         });
@@ -85,47 +93,47 @@ public class ToolsActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         //attaching value event listener
-        databaseTools.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                //clearing the previous artist list
-                tools.clear();
-
-                //iterating through all the nodes
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    //getting tool
-                    Item tool = postSnapshot.getValue(Item.class);
-                    //adding tool to the list
-                    tools.add(tool);
-                }
-
-                //creating adapter
-                ToolList toolsAdapter = new ToolList(ToolsActivity.this, tools);
-                //attaching adapter to the listview
-                listViewTools.setAdapter(toolsAdapter);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+//        databaseTools.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                //clearing the previous artist list
+//                tools.clear();
+//
+//                //iterating through all the nodes
+//                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+//                    //getting tool
+//                    Item tool = postSnapshot.getValue(Item.class);
+//                    //adding tool to the list
+//                    tools.add(tool);
+//                }
+//
+//                //creating adapter
+//                ToolList toolsAdapter = new ToolList(ToolsActivity.this, tools);
+//                //attaching adapter to the listview
+//                listViewTools.setAdapter(toolsAdapter);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
     }
 
 
-    private void showUpdateDeleteDialog(final String toolId, String toolName) {
+    private void showUpdateDeleteDialog(final Item item, final int i) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.tools_popup, null);
         dialogBuilder.setView(dialogView);
 
-        final EditText editToolName = (EditText) dialogView.findViewById(R.id.editToolName);
+        final EditText editToolName = (EditText) dialogView.findViewById(R.id.groceryView);
         final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonUpdateTool);
         final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonDeleteTool);
 
-        dialogBuilder.setTitle(toolName);
+        dialogBuilder.setTitle(item.getName());
         final AlertDialog b = dialogBuilder.create();
         b.show();
 
@@ -135,8 +143,9 @@ public class ToolsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String name = editToolName.getText().toString().trim();
                 if (!TextUtils.isEmpty(name)) {
-                    updateTool(toolId, name);
+                    item.setName(name);
                     b.dismiss();
+                    utils.saveTool(item);
                 }
             }
         });
@@ -144,7 +153,9 @@ public class ToolsActivity extends AppCompatActivity {
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteTool(toolId);
+                utils.deleteTool(item);
+                toolsString.remove(i);
+                adapter.notifyDataSetChanged();
                 b.dismiss();
             }
         });
@@ -184,8 +195,9 @@ public class ToolsActivity extends AppCompatActivity {
             Item tool = new Item(name, 0, null);
 
             //Saving the Tool
-            databaseTools.child(id).setValue(tool);
-
+            utils.saveTool(tool);
+            toolsString.add(tool.getName());
+            adapter.notifyDataSetChanged();
             //setting edittext to blank again
             editToolName.setText("");
 
@@ -219,5 +231,12 @@ public class ToolsActivity extends AppCompatActivity {
         Intent otherIntent = new Intent(getApplicationContext(), OtherActivity.class);
         startActivity(otherIntent);
         finish();
+    }
+
+    public void copyList(){
+        toolsString.clear();
+        for(Item i : tools){
+            toolsString.add(i.getName());
+        }
     }
 }

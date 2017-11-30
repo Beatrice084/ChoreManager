@@ -21,7 +21,7 @@ public class Item implements Parcelable, Comparable<Item> {
         this.name = name;
         this.type = type;
         this.id = id;
-        this.uid = uid;
+        this.uid = null;
     }
 
     public String getName() {

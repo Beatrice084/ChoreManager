@@ -7,6 +7,7 @@ package com.example.beajo.choremanager2.adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 
 public class TaskAdapter extends ArrayAdapter<TaskItem> {
     static final String key = TaskAdapter.class.getSimpleName();
+    private final String TAG = TaskAdapter.class.getSimpleName();
     Utils utils;
     public TaskAdapter(@NonNull Context context, ArrayList<TaskItem> tasks) {
         super(context, 0, tasks);
@@ -48,6 +50,7 @@ public class TaskAdapter extends ArrayAdapter<TaskItem> {
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.d(TAG, "Points change");
                 if(isChecked){
                     p.setStatus(1);
                     utils.updateScore(p.getUid(), 1);

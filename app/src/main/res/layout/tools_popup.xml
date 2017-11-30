@@ -9,12 +9,12 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/entergroceryormaterial"
+            android:id="@+id/groceryView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Enter Tool" />
+            android:hint="Enter Tool"
+            android:inputType="textPersonName" />
 
         <LinearLayout
             android:layout_width="match_parent"
