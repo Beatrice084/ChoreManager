@@ -51,6 +51,12 @@ public class PeopleActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(TAG, "Item clicked");
+                //Toast.makeText(view.getContext(), p.get(position).getName(), Toast.LENGTH_SHORT).show();
+                //Bundle b = new Bundle();
+                //b.putString("name", p.get(position).getName());
+                //Intent personIntent = new Intent(getApplicationContext(), PersonIndividualActivity.class);
+                //personIntent.putExtras(b);
+                //startActivity(personIntent);
             }
         });
     }

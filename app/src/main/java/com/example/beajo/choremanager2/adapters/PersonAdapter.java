@@ -37,4 +37,6 @@ public class PersonAdapter extends ArrayAdapter<Person> {
         name.setText(p.getName());
         return v;
     }
+
+
 }

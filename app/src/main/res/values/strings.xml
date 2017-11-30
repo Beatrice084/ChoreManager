@@ -20,4 +20,8 @@
     <string name="female_gender">Female</string>
     <string name="save_person">SAVE</string>
     <string name="name_hint">Name</string>
+    <string name="TaskName">Task Name:</string>
+    <string name="EnterDesc">Enter a description...</string>
+    <string name="EnterNote">Note:</string>
+    <string name="RequireEquipment">Require Equipment:</string>
 </resources>

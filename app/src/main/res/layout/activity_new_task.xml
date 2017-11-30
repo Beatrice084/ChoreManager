@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.beajo.choremanager2.views.newTask">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/enterTaskName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/TaskName"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <EditText
+            android:id="@+id/newTaskName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter Task Name"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/enterNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/EnterNote"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <EditText
+            android:id="@+id/newNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/EnterDesc"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/ReqEquip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/RequireEquipment"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <ListView
+            android:id="@+id/RequiredEquip"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
