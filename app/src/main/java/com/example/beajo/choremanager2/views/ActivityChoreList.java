@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.beajo.choremanager2.R;
+import com.example.beajo.choremanager2.Utils;
+import com.example.beajo.choremanager2.model.Person;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.ResultCodes;
@@ -22,12 +24,14 @@ public class ActivityChoreList extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     FirebaseUser mUser;
+    Utils util;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chore_list);
         Log.d(TAG, "home");
+        util = new Utils();
     }
 
     @Override
@@ -51,6 +55,7 @@ public class ActivityChoreList extends AppCompatActivity {
             if (resultCode == ResultCodes.OK) {
                 // Successfully signed in
                 mUser = mAuth.getCurrentUser();
+                uploadUser();
                 // ...
             } else {
                 // Sign in failed, check response for error code
@@ -91,6 +96,16 @@ public class ActivityChoreList extends AppCompatActivity {
         Intent otherIntent = new Intent(getApplicationContext(), OtherActivity.class);
         startActivity(otherIntent);
         finish();
+    }
+
+    public void uploadUser(){
+        Person p = new Person();
+        FirebaseUser user = mAuth.getCurrentUser();
+        p.setName(user.getDisplayName());
+        p.setEmail(user.getEmail());
+        p.setGender(R.drawable.male);
+        p.setUid(user.getUid());
+        util.addUser(p);
     }
     
 

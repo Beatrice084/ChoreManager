@@ -28,13 +28,6 @@ public class NewPersonDialog extends DialogFragment {
     RadioGroup group;
     RadioButton maleButton, femaleButton;
     Button save;
-    NewPersonDialogListener callback;
-    Person p = new Person();
-
-    interface NewPersonDialogListener{
-        void dataSaved(Person p);
-        void saveStatus(int i);
-    }
 
     @Nullable
     @Override
@@ -46,69 +39,9 @@ public class NewPersonDialog extends DialogFragment {
         maleButton = (RadioButton)v.findViewById(R.id.maleRadioButton);
         femaleButton = (RadioButton)v.findViewById(R.id.femaleRadioButton);
         save = (Button)v.findViewById(R.id.addPersonButton);
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(save()){
-                    callback.dataSaved(p);
-                }
-            }
-        });
-
         return v;
     }
 
-    private boolean save(){
-        MyDBHandler dbHandler = new MyDBHandler(getContext());
-        boolean stat;
-        if(verify()){
-            stat = dbHandler.addPerson(p);
-            if(stat){
-                callback.saveStatus(1);
-            }
-            else {
-                callback.saveStatus(0);
-            }
-            return true;
-        }
-        return false;
-    }
-
-    private boolean verify(){
-        boolean state = true;
-        String name = nameView.getText().toString();
-        if(TextUtils.isEmpty(name)){
-            nameView.setError("Name can't be empty");
-            state = false;
-        }
-        else {
-            p.setName(name);
-        }
-
-        if(maleButton.isChecked()){
-            p.setImage(R.drawable.male);
-        }else if(femaleButton.isChecked()){
-            p.setImage(R.drawable.female);
-        }else {
-            Toast.makeText(getContext(), "Please select gender", Toast.LENGTH_SHORT).show();
-            state = false;
-        }
-        return state;
-    }
-
-    public static NewPersonDialog newInstance(){
-        return new NewPersonDialog();
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            callback = (NewPersonDialogListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString()
-                    + " must implement OnHeadlineSelectedListener");
-        }
-    }
+   
 
 }
