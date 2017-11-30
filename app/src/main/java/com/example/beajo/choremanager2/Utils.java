@@ -16,9 +16,6 @@ public class Utils {
     private DatabaseReference mDatabase;
     private static ArrayList<TaskItem> tasks;
     public Utils() {
-
-
-
        mDatabase  = FirebaseDatabase.getInstance().getReference();
         tasks = null;
     }
