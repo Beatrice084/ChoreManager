@@ -47,7 +47,7 @@ public class Utils {
         return myTasks;
     }
 
-    public void getPeople(){
+    public ArrayList<Person> getPeople(){
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -78,5 +78,6 @@ public class Utils {
         };
         DatabaseReference peopleReference = mDatabase.child("People");
         peopleReference.addChildEventListener(childEventListener);
+        return people;
     }
 }
