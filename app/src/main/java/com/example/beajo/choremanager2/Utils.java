@@ -41,7 +41,8 @@ public class Utils {
         Iterator<TaskItem> iterator = tasks.iterator();
         while(iterator.hasNext()){
             TaskItem current = iterator.next();
-            if(current.getPersonAssigned()==null){
+            if (current.getPersonAssigned() == null){
+
 
             }
             else if(current.getPersonAssigned().equals(uid)){

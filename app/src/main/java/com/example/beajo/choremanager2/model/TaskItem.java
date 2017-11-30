@@ -38,6 +38,7 @@ public class TaskItem implements Comparable<TaskItem>,Parcelable {
 
     }
 
+
     public String getName(){
         return this.name;
     }
@@ -95,7 +96,6 @@ public class TaskItem implements Comparable<TaskItem>,Parcelable {
         return name.compareTo(o.getName());
     }
 
-
     @Override
     public int describeContents() {
         return 0;
@@ -116,6 +116,11 @@ public class TaskItem implements Comparable<TaskItem>,Parcelable {
         this.personAssigned = in.readString();
         this.note = in.readString();
         this.status = in.readInt();
+        this.equiptment = new ArrayList<Item>();
+        in.readList(this.equiptment, Item.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<TaskItem> CREATOR = new Parcelable.Creator<TaskItem>() {
         this.equiptment = in.createTypedArrayList(Item.CREATOR);
         this.uid = in.readString();
     }
