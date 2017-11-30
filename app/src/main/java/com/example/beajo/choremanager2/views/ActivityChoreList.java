@@ -5,9 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListView;
 
 import com.example.beajo.choremanager2.R;
 import com.example.beajo.choremanager2.Utils;
+import com.example.beajo.choremanager2.adapters.TaskAdapter;
 import com.example.beajo.choremanager2.model.Item;
 import com.example.beajo.choremanager2.model.Person;
 import com.example.beajo.choremanager2.model.TaskItem;
@@ -16,9 +20,15 @@ import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.ResultCodes;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ActivityChoreList extends AppCompatActivity {
@@ -27,34 +37,31 @@ public class ActivityChoreList extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     FirebaseUser mUser;
+    ListView listView;
+    Button newTask;
+    TaskAdapter taskAdapter;
     Utils util;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chore_list);
         Log.d(TAG, "home");
         util = new Utils();
-        util.downloadPeople();
-        util.downloadTasks();
 
-//        ArrayList<Item> items = new ArrayList<>();
-//        items.add(new Item("Broom", 0));
-//        items.add(new Item("Broom", 0));
-//
-//        Bundle bundle = new Bundle();
-//        TaskItem t = new TaskItem();
-//        t.setName("Timi");
-//        t.setStatus(0);
-//        t.setNote("gifjgf hfdi fuh xuhd xeuhe xuheu xeheuhr xeeherh xererhe xeurh xeurhe xuerheur" +
-//                " xereurh xeruh xeureu xeurheu erheuwirh xrwrh xurhr xeurhweurh erhe");
-//        t.setPersonAssigned(null);
-//        t.setEquiptment(items);
-//        bundle.putParcelable("Task", t);
-//        Intent otherIntent = new Intent(getApplicationContext(), TaskIndividualActivity.class);
-//        otherIntent.putExtras(bundle);
-//        startActivity(otherIntent);
-//        finish();
+        listView = (ListView)findViewById(R.id.taskList);
+        taskAdapter = new TaskAdapter(this, util.getTasks());
+        util.registerAdapter(taskAdapter.getKey(), taskAdapter);
+        listView.setAdapter(taskAdapter);
+        newTask = (Button)findViewById(R.id.newTask);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                startTaskIndividual(util.getTasks().get(position));
+            }
+        });
+
+
     }
 
     @Override
@@ -64,6 +71,8 @@ public class ActivityChoreList extends AppCompatActivity {
 
         if(mAuth.getCurrentUser() == null){
             signIn();
+        }else{
+            download();
         }
 
     }
@@ -79,6 +88,8 @@ public class ActivityChoreList extends AppCompatActivity {
                 // Successfully signed in
                 mUser = mAuth.getCurrentUser();
                 uploadUser();
+                download();
+
                 // ...
             } else {
                 // Sign in failed, check response for error code
@@ -135,6 +146,22 @@ public class ActivityChoreList extends AppCompatActivity {
         p.setGender(R.drawable.male);
         p.setUid(user.getUid());
         util.addUser(p);
+    }
+
+    public void download(){
+        util.downloadPeople();
+        util.downloadTasks();
+        util.downloadTools();
+        util.downloadShoppingList();
+    }
+
+    public void startTaskIndividual(TaskItem taskItem){
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("task", taskItem);
+        Intent intent = new Intent(ActivityChoreList.this, TaskIndividualActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+
     }
     
 

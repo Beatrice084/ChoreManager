@@ -3,6 +3,7 @@ package com.example.beajo.choremanager2.views;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -37,6 +38,8 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
     FirebaseAuth mAuth;
     FirebaseUser mUser;
     Utils util;
+    ArrayList<Item> tools;
+    private final String TAG = NewTaskActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +57,7 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
         items = new ArrayList<>();
         itemB = new ArrayList<>();
         realItems = new ArrayList<>();
+        tools = util.getTools();
         addItems();
 
         listView = (ListView) findViewById(R.id.equipment_grid);
@@ -76,28 +80,46 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
         else {
             updateView();
         }
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "Long click");
+                int index = util.binarySearchItem(itemB.get(position));
+                if(index > -1){
+                    Item item = tools.get(index);
+                    itemB.remove(item.getName());
+                    realItems.remove(item);
+                    adapterB.notifyDataSetChanged();
+                }
+                return true;
+            }
+        });
     }
 
     public void updateView(){
         nameView.setText(task.getName());
         descriptionView.setText(task.getNote());
-        for (Item i : task.getEquiptment()){
+        for (Item i : task.getEquipment()){
             itemB.add(i.getName());
             adapterB.notifyDataSetChanged();
         }
     }
 
     private void addItems(){
-        for (int i = 0; i < 10; i ++){
-            items.add("broom");
+        items.clear();
+        for (int i = 0; i < tools.size(); i ++){
+            items.add(tools.get(i).getName());
         }
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        itemB.add(items.get(position));
-        realItems.add(new Item("Broom", 0));
-        adapterB.notifyDataSetChanged();
+        if(util.binarySearchItem(itemB, tools.get(position).getName()) == -1) {
+            itemB.add(items.get(position));
+            realItems.add(tools.get(position));
+            adapterB.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -132,7 +154,11 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
         String note = descriptionView.getText().toString();
         task.setName(name);
         task.setNote(note);
-        task.setEquiptment(realItems);
+        //task.setEquipment(realItems);
+        task.getEquipment().clear();
+        for(Item i : realItems){
+            task.addEquipment(i);
+        }
         task.setStatus(0);
         boolean state = true;
         if(TextUtils.isEmpty(name)){

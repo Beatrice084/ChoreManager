@@ -1,122 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.beajo.choremanager2.views.ShoppingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/other"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:onClick="otherButtonClick"
+            android:text="@string/Other"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/shopping"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
             android:background="@color/colorPrimaryDark"
-            android:orientation="horizontal">
+            android:text="@string/Shopping"
+            android:textColor="#ffffff" />
 
-            <Button
-                android:id="@+id/other"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="1dp"
-                android:layout_weight="1"
-                android:background="@color/colorPrimary"
-                android:onClick="otherButtonClick"
-                android:text="@string/Other"
-                android:textColor="#ffffff" />
-
-            <Button
-                android:id="@+id/shopping"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="1dp"
-                android:layout_weight="1"
-                android:background="@color/colorPrimaryDark"
-                android:text="@string/Shopping"
-                android:textColor="#ffffff" />
-
-            <Button
-                android:id="@+id/tasks"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="1dp"
-                android:layout_weight="1"
-                android:background="@color/colorPrimary"
-                android:onClick="tasksButtonClick"
-                android:text="@string/Tasks"
-                android:textColor="#ffffff" />
-
-            <Button
-                android:id="@+id/people"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/colorPrimary"
-                android:onClick="peopleButtonClick"
-                android:text="@string/People"
-                android:textColor="#ffffff" />
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/tasks"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:onClick="tasksButtonClick"
+            android:text="@string/Tasks"
+            android:textColor="#ffffff" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/enterGroceryOrMaterial"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Enter Grocery or Material"
-                    android:inputType="textPersonName" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
-                    <Button
-                        android:id="@+id/button"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Add" />
-
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/label"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Groceries and Material" />
-
-                <ListView
-                    android:id="@+id/list"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
+        <Button
+            android:id="@+id/people"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:onClick="peopleButtonClick"
+            android:text="@string/People"
+            android:textColor="#ffffff" />
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+
+    <EditText
+        android:id="@+id/groceryView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter Grocery or Material"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:onClick="addButtonClick"
+        android:text="Add" />
+
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Groceries and Material" />
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
