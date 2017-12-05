@@ -13,6 +13,7 @@ import android.widget.ListView;
 import com.example.beajo.choremanager2.R;
 import com.example.beajo.choremanager2.Utils;
 import com.example.beajo.choremanager2.adapters.TaskAdapter;
+import com.example.beajo.choremanager2.model.AppContract;
 import com.example.beajo.choremanager2.model.Item;
 import com.example.beajo.choremanager2.model.Person;
 import com.example.beajo.choremanager2.model.TaskItem;
@@ -77,7 +78,6 @@ public class ActivityChoreList extends AppCompatActivity {
         }else{
             download();
         }
-
     }
 
     @Override
@@ -92,12 +92,7 @@ public class ActivityChoreList extends AppCompatActivity {
                 mUser = mAuth.getCurrentUser();
                 uploadUser();
                 download();
-
-                // ...
-            } else {
-                // Sign in failed, check response for error code
-                // ...
-            }
+            } else {}
         }
     }
 
@@ -107,7 +102,6 @@ public class ActivityChoreList extends AppCompatActivity {
                 new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
                 new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build());
 
-// Create and launch sign-in intent
         startActivityForResult(
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
@@ -120,7 +114,6 @@ public class ActivityChoreList extends AppCompatActivity {
         Intent shoppingIntent = new Intent(getApplicationContext(), ShoppingActivity.class);
         startActivity(shoppingIntent);
         finish();
-
     }
 
     public void peopleButtonClick(View view){//Starts people_list activity
@@ -160,7 +153,7 @@ public class ActivityChoreList extends AppCompatActivity {
 
     public void startTaskIndividual(TaskItem taskItem){
         Bundle bundle = new Bundle();
-        bundle.putParcelable("task", taskItem);
+        bundle.putParcelable(AppContract.TASK_BUNDLE, taskItem);
         Intent intent = new Intent(ActivityChoreList.this, TaskIndividualActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);

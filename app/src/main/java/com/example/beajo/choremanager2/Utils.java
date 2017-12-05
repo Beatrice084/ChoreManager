@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter;
 import com.example.beajo.choremanager2.adapters.PersonAdapter;
 import com.example.beajo.choremanager2.adapters.ShoppingAdapter;
 import com.example.beajo.choremanager2.adapters.TaskAdapter;
+import com.example.beajo.choremanager2.model.AppContract;
 import com.example.beajo.choremanager2.model.Item;
 import com.example.beajo.choremanager2.model.Person;
 import com.example.beajo.choremanager2.model.TaskItem;
@@ -43,7 +44,7 @@ public class Utils {
     }
 
     public void addUser(Person p){
-        DatabaseReference peopleReference = mDatabase.child("People/"+p.getUid());
+        DatabaseReference peopleReference = mDatabase.child(AppContract.PEOPLE_NODE).child(p.getUid());
         peopleReference.setValue(p);
     }
 
@@ -114,7 +115,7 @@ public class Utils {
 
             }
         };
-        DatabaseReference peopleReference = mDatabase.child("People");
+        DatabaseReference peopleReference = mDatabase.child(AppContract.PEOPLE_NODE);
         peopleReference.addChildEventListener(childEventListener);
     }
 
@@ -157,7 +158,7 @@ public class Utils {
                 Log.d(TAG, databaseError.getMessage());
             }
         };
-        DatabaseReference taskReference = mDatabase.child("Tasks");
+        DatabaseReference taskReference = mDatabase.child(AppContract.TASKS_NODE);
         taskReference.addChildEventListener(childEventListener);
     }
 
@@ -200,7 +201,7 @@ public class Utils {
                 Log.d(TAG, databaseError.getMessage());
             }
         };
-        DatabaseReference taskReference = mDatabase.child("tools");
+        DatabaseReference taskReference = mDatabase.child(AppContract.TOOLS_NODE);
         taskReference.addChildEventListener(childEventListener);
     }
 
@@ -242,7 +243,7 @@ public class Utils {
 
             }
         };
-        DatabaseReference shopRef = mDatabase.child("ShoppingList");
+        DatabaseReference shopRef = mDatabase.child(AppContract.SHOPPING_NODE);
         shopRef.addChildEventListener(childEventListener);
     }
 
@@ -250,7 +251,7 @@ public class Utils {
         DatabaseReference peopleReference;
         if(task.getId() == null){
             Log.d(TAG, "is null");
-            peopleReference = mDatabase.child("Tasks").push();
+            peopleReference = mDatabase.child(AppContract.TASKS_NODE).push();
             String key = peopleReference.getKey();
             task.setId(key);
             peopleReference.setValue(task);
@@ -258,7 +259,7 @@ public class Utils {
         }
         else {
             Log.d(TAG, "not null");
-            mDatabase.child("Tasks").child(task.getId()).setValue(task);
+            mDatabase.child(AppContract.TASKS_NODE).child(task.getId()).setValue(task);
 
         }
     }
@@ -267,7 +268,7 @@ public class Utils {
         DatabaseReference peopleReference;
         if(item.getUid() == null){
             Log.d(TAG, "is null");
-            peopleReference = mDatabase.child("ShoppingList").push();
+            peopleReference = mDatabase.child(AppContract.SHOPPING_NODE).push();
             String key = peopleReference.getKey();
             item.setUid(key);
             peopleReference.setValue(item);
@@ -275,7 +276,7 @@ public class Utils {
         }
         else {
             Log.d(TAG, "not null");
-            mDatabase.child("ShoppingList").child(item.getId()).setValue(item);
+            mDatabase.child(AppContract.SHOPPING_NODE).child(item.getId()).setValue(item);
 
         }
     }
@@ -284,7 +285,7 @@ public class Utils {
         DatabaseReference peopleReference;
         if(item.getUid() == null){
             Log.d(TAG, "is null");
-            peopleReference = mDatabase.child("tools").push();
+            peopleReference = mDatabase.child(AppContract.TOOLS_NODE).push();
             String key = peopleReference.getKey();
             item.setUid(key);
             peopleReference.setValue(item);
@@ -292,18 +293,18 @@ public class Utils {
         }
         else {
             Log.d(TAG, "not null");
-            mDatabase.child("tools").child(item.getUid()).setValue(item);
+            mDatabase.child(AppContract.TOOLS_NODE).child(item.getUid()).setValue(item);
 
         }
     }
 
     public void deleteItem(Item item){
-        DatabaseReference ref = mDatabase.child("ShoppingList").child(item.getUid());
+        DatabaseReference ref = mDatabase.child(AppContract.SHOPPING_NODE).child(item.getUid());
         ref.removeValue();
     }
 
     public void deleteTool(Item item){
-        DatabaseReference ref = mDatabase.child("tools").child(item.getUid());
+        DatabaseReference ref = mDatabase.child(AppContract.TOOLS_NODE).child(item.getUid());
         ref.removeValue();
     }
 
@@ -311,7 +312,7 @@ public class Utils {
         Log.d(TAG, "Saving person1");
         if (person == null) return;
         Log.d(TAG, "Saving person");
-        mDatabase.child("People").child(person.getUid()).setValue(person);
+        mDatabase.child(AppContract.PEOPLE_NODE).child(person.getUid()).setValue(person);
     }
 
     public void updateScore(String uid, int type){
@@ -332,7 +333,7 @@ public class Utils {
     }
 
     public void deleteTask(TaskItem task){
-        DatabaseReference taskReference = mDatabase.child("Tasks").child(task.getId());
+        DatabaseReference taskReference = mDatabase.child(AppContract.TASKS_NODE).child(task.getId());
         taskReference.removeValue();
     }
 
@@ -354,8 +355,6 @@ public class Utils {
     public ArrayList<Item> getTools(){
         return tools;
     }
-
-
 
     public static ArrayList<Item> getShoppingList() {
         return shoppingList;

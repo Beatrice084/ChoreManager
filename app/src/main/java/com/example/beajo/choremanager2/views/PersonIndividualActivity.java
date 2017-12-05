@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.beajo.choremanager2.R;
 import com.example.beajo.choremanager2.Utils;
 import com.example.beajo.choremanager2.adapters.TaskAdapter;
+import com.example.beajo.choremanager2.model.AppContract;
 import com.example.beajo.choremanager2.model.Person;
 import com.example.beajo.choremanager2.model.TaskItem;
 
@@ -27,9 +28,9 @@ public class PersonIndividualActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_individual);
         Bundle bundle = getIntent().getExtras();
-        Person p = bundle.getParcelable("person");
+        Person p = bundle.getParcelable(AppContract.PERSON_BUNDLE);
 
-        TextView t=(TextView)findViewById(R.id.personName2);
+        TextView t=(TextView)findViewById(R.id.personName);
 
         t.setText(p.getName());
 

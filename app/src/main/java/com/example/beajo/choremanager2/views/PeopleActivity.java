@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.beajo.choremanager2.MyDBHandler;
 import com.example.beajo.choremanager2.Utils;
+import com.example.beajo.choremanager2.model.AppContract;
 import com.example.beajo.choremanager2.model.Person;
 
 import com.example.beajo.choremanager2.R;
@@ -53,7 +54,7 @@ public class PeopleActivity extends AppCompatActivity {
                 Log.d(TAG, "Item clicked");
                 Toast.makeText(view.getContext(), p.get(position).getName(), Toast.LENGTH_SHORT).show();
                 Bundle b = new Bundle();
-                b.putParcelable("person", p.get(position));
+                b.putParcelable(AppContract.PERSON_BUNDLE, p.get(position));
                 Intent personIntent = new Intent(getApplicationContext(), PersonIndividualActivity.class);
                 personIntent.putExtras(b);
                 startActivity(personIntent);

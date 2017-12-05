@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.beajo.choremanager2.R;
 import com.example.beajo.choremanager2.Utils;
+import com.example.beajo.choremanager2.model.AppContract;
 import com.example.beajo.choremanager2.model.Item;
 import com.example.beajo.choremanager2.model.Person;
 import com.example.beajo.choremanager2.model.TaskItem;
@@ -70,7 +71,7 @@ public class TaskIndividualActivity extends AppCompatActivity implements Adapter
             }
         });
 
-        t = bundle.getParcelable("task");
+        t = bundle.getParcelable(AppContract.TASK_BUNDLE);
         if(t != null){
             updateView();
         }
@@ -85,7 +86,7 @@ public class TaskIndividualActivity extends AppCompatActivity implements Adapter
         if(index > -1){
             p = util.getPeople().get(index);
             personName.setText(p.getName());
-            personIcon.setImageResource(p.getGender());
+            //personIcon.setImageResource(p.getGender());
         }
         else {
             personName.setText(getString(R.string.not_assigned));
