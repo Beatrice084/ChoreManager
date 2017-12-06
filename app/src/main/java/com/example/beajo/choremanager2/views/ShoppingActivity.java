@@ -53,9 +53,9 @@ public class ShoppingActivity extends AppCompatActivity {
         finish();
     }
 
-    public void otherButtonClick(View view){//Starts other activity
-        Intent otherIntent = new Intent(getApplicationContext(), OtherActivity.class);
-        startActivity(otherIntent);
+    public void resourceButtonClick(View view){//Starts other activity
+        Intent resourceIntent = new Intent(getApplicationContext(), ToolsActivity.class);
+        startActivity(resourceIntent);
         finish();
     }
 
