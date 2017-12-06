@@ -344,7 +344,9 @@ public class Utils {
                 p.incPoints();
             }
             else {
-                //p.decPoints();
+                if(p.getPoints() > 0){
+                    p.decPoints();
+                }
             }
             savePerson(p);
         }

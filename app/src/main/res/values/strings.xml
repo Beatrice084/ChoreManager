@@ -26,4 +26,5 @@
     <string name="RequireEquipment">Require Equipment:</string>
     <string name="res_prompt">Resources</string>
     <string name="not_assigned">Not assigned</string>
+    <string name="new_task">ADD NEW TASK</string>
 </resources>
