@@ -1,5 +1,6 @@
 package com.example.beajo.choremanager2;
 
+import android.content.Context;
 import android.util.Log;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
@@ -34,13 +35,22 @@ public class Utils {
     private static ArrayList<TaskItem> tasks = new ArrayList<>();
     private static ArrayList<Item> tools = new ArrayList<>();
     private static ArrayList<Item> shoppingList = new ArrayList<>();
-    private DatabaseReference mDatabase;
+    private static DatabaseReference mDatabase;
     private static ArrayList<Person> people = new ArrayList<>();
     private static String TAG = Utils.class.getSimpleName();
     private static Map<String, ArrayAdapter> adapters = new HashMap<>();
+    private static DataChangeListener dataChangeListener = null;
+
+    public static interface DataChangeListener{
+        void personChanged(Person p);
+    }
 
     public Utils() {
        mDatabase  = FirebaseDatabase.getInstance().getReference();
+    }
+
+    public void initListener(Context context){
+        dataChangeListener = (DataChangeListener) context;
     }
 
     public void addUser(Person p){
@@ -71,7 +81,7 @@ public class Utils {
         return myTasks;
     }
 
-    public void downloadPeople(){
+    public static void downloadPeople(){
         Log.d(TAG, "download people");
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
@@ -88,10 +98,19 @@ public class Utils {
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Person p = dataSnapshot.getValue(Person.class);
                 int index = binarySearchPerson(p.getUid());
+                Log.d(TAG, "PersonChanged");
                 if(index > -1){
                     people.remove(index);
                     people.add(index, p);
                     callAdapters(PersonAdapter.getKey());
+                    if(dataChangeListener != null){
+                        dataChangeListener.personChanged(p);
+                        Log.d(TAG, "PersonChanged listener called");
+                    }
+                    else {
+                        Log.d(TAG, "PersonChanged listener is null");
+                    }
+
                 }
             }
 
@@ -337,7 +356,7 @@ public class Utils {
         taskReference.removeValue();
     }
 
-    public void callAdapters(String key){
+    public static void callAdapters(String key){
         ArrayAdapter a = adapters.get(key);
         if(a != null){
             a.notifyDataSetChanged();
@@ -360,7 +379,7 @@ public class Utils {
         return shoppingList;
     }
 
-    private boolean binarySearchPerson(Person p){
+    private static boolean binarySearchPerson(Person p){
         int a = 0;
         int b = people.size()-1;
 
@@ -379,7 +398,7 @@ public class Utils {
         return false;
     }
 
-    public int binarySearchPerson(String uid){
+    public static int binarySearchPerson(String uid){
         int a = 0;
         int b = people.size()-1;
         if(uid == null) return -1;
@@ -398,7 +417,7 @@ public class Utils {
         return -1;
     }
 
-    private int binarySearchTask(TaskItem t){
+    private static int binarySearchTask(TaskItem t){
         int a = 0;
         int b = tasks.size()-1;
 
