@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.beajo.choremanager2.Utils;
 import com.example.beajo.choremanager2.model.Person;
 import com.example.beajo.choremanager2.R;
 
@@ -32,10 +33,11 @@ public class PersonAdapter extends ArrayAdapter<Person> {
         ImageView image = (ImageView) v.findViewById(R.id.personImage);
         TextView name = (TextView) v.findViewById(R.id.personName);
         TextView allocatedTasks = (TextView) v.findViewById(R.id.personAllocatedTask);
-        TextView nextTask = (TextView) v.findViewById(R.id.personNextTask);
         Person p = getItem(position);
         //image.setImageResource(p.getImage());
         name.setText(p.getName());
+        int allocTasks = Utils.getTasks(p.getUid()).size();
+        allocatedTasks.setText("Allocated Tasks: " + allocTasks);
         return v;
     }
 

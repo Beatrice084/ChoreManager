@@ -40,13 +40,7 @@
             android:textSize="18sp"
             tools:text="@string/person_allocated_tasks" />
 
-        <TextView
-            android:id="@+id/personNextTask"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/person_next_task"
-            android:textSize="18sp"
-            tools:text="@string/person_next_task" />
+
     </LinearLayout>
 
 </LinearLayout>
