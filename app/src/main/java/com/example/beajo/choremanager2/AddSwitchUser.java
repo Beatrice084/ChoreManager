@@ -3,7 +3,7 @@ package com.example.beajo.choremanager2;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class add_switch_user extends AppCompatActivity {
+public class AddSwitchUser extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
