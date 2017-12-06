@@ -23,9 +23,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="1dp"
                 android:layout_weight="1"
-                android:background="@color/colorPrimary"
-                android:onClick="otherButtonClick"
-                android:text="@string/Other"
+                android:background="@color/colorPrimaryDark"
+                android:text="@string/Resource"
                 android:textColor="#ffffff" />
 
             <Button
