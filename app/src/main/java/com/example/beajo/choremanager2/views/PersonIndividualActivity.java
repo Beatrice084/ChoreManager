@@ -25,6 +25,7 @@ public class PersonIndividualActivity extends AppCompatActivity implements Utils
     Utils util;
     TextView nameView, pointsView;
     Person p;
+    ArrayList<TaskItem> taskList;
     private static final String TAG = PersonIndividualActivity.class.getSimpleName();
 
     @Override
@@ -34,6 +35,7 @@ public class PersonIndividualActivity extends AppCompatActivity implements Utils
 
         Bundle bundle = getIntent().getExtras();
         p = bundle.getParcelable(AppContract.PERSON_BUNDLE);
+        Log.d(TAG, p.toString());
 
         nameView =(TextView)findViewById(R.id.personName);
         pointsView =(TextView)findViewById(R.id.personsPoints);
@@ -44,15 +46,15 @@ public class PersonIndividualActivity extends AppCompatActivity implements Utils
 
         nameView.setText(p.getName());
         pointsView.setText(Integer.toString(p.getPoints()));
-
-        taskAdapter = new TaskAdapter(this, util.getTasks(p.getUid()));
+        taskList = new ArrayList<>();
+        taskAdapter = new TaskAdapter(this, taskList);
         util.registerAdapter(taskAdapter.getKey(), taskAdapter);
         currentTasks.setAdapter(taskAdapter);
 
         currentTasks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startTaskIndividual(util.getTasks().get(position));
+                startTaskIndividual(taskList.get(position));
             }
         });
 
@@ -60,6 +62,14 @@ public class PersonIndividualActivity extends AppCompatActivity implements Utils
         TaskAdapter adp = new TaskAdapter(this,tasks);
         currentTasks.setAdapter(adp);
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        taskList.clear();
+        taskList.addAll(util.getTasks(p.getUid()));
+        taskAdapter.notifyDataSetChanged();
     }
 
     public void startTaskIndividual(TaskItem taskItem){

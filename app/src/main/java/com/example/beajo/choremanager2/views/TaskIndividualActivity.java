@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -40,6 +41,7 @@ public class TaskIndividualActivity extends AppCompatActivity implements Adapter
     ArrayAdapter listAdapter;
     TaskItem t;
     Utils util;
+    private static final String TAG = PersonIndividualActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,7 @@ public class TaskIndividualActivity extends AppCompatActivity implements Adapter
 
         t = bundle.getParcelable(AppContract.TASK_BUNDLE);
         if(t != null){
+            Log.d(TAG, t.toString());
             updateView();
         }
 

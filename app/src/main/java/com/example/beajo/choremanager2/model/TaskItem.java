@@ -106,6 +106,11 @@ public class TaskItem implements Comparable<TaskItem>,Parcelable {
     }
 
     @Override
+    public String toString() {
+        return "[name: " + name + ", uid: " + uid + "]";
+    }
+
+    @Override
     public int compareTo(@NonNull TaskItem o) {
         return name.compareTo(o.getName());
     }

@@ -66,6 +66,11 @@ public class Person implements Comparable<Person>,Parcelable {
     public void decPoints(){this.points--;}
 
     @Override
+    public String toString() {
+        return "[name: " + name + ", uid: " + uid + "]";
+    }
+
+    @Override
     public int compareTo(@NonNull Person o) {
         return uid.compareTo(o.getUid());
     }

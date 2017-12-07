@@ -42,7 +42,7 @@ public class PeopleActivity extends AppCompatActivity {
 
         util = new Utils();
         peopleList = (ListView)findViewById(R.id.list);
-        p = util.getPeople();
+        p = new ArrayList<>();
         adapter = new PersonAdapter(this, p);
 
         peopleList.setAdapter(adapter);
@@ -60,6 +60,14 @@ public class PeopleActivity extends AppCompatActivity {
                 startActivity(personIntent);
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        p.clear();
+        p.addAll(util.getPeople());
+        adapter.notifyDataSetChanged();
     }
 
     public void shoppingButtonClick(View view){//Starts Shopping activity

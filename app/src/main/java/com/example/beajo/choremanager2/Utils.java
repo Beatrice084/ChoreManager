@@ -58,7 +58,7 @@ public class Utils {
         peopleReference.setValue(p);
     }
 
-    public static ArrayList<TaskItem> getTasks(String uid){
+    public static ArrayList<TaskItem> getTasks(String uid) {
         Log.d(TAG, "Getting individual task");
         ArrayList<TaskItem> myTasks = new ArrayList<>();
         Iterator<TaskItem> iterator = tasks.iterator();
